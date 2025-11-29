@@ -5,17 +5,21 @@ using System.Threading.Tasks;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private float attackDamage = 10f;
+    [SerializeField] private int attackDamage = 10;
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] public static float attackCooldown = 0.5f;
     [SerializeField] private float dashDuration = .5f;
     [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] private float attackOffset = 1f;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Transform attackPoint;
-
-    private bool isAttacking = false;
-    private bool isDashActive = false;
+    [SerializeField] private PlayerMovement playerMovement;  
     private bool isDashOnCooldown = false;
+    public Action<Vector3> enemyHurt;
+    void Start()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+    }
 
     async void Update()
     {
@@ -31,14 +35,12 @@ public class PlayerAttack : MonoBehaviour
 
     private async UniTask DashAsync()
     {
-        isDashActive = true;
         isDashOnCooldown = true;
         PlayerStatus.Instance.currentState = PlayerState.Dash;
         
         // Wait for dash duration
         await UniTask.Delay(System.TimeSpan.FromSeconds(dashDuration));
         
-        isDashActive = false;
         PlayerStatus.Instance.currentState = PlayerState.Idle;
         
         // Wait for cooldown
@@ -51,17 +53,33 @@ public class PlayerAttack : MonoBehaviour
     {
         return !isDashOnCooldown && (PlayerStatus.Instance.currentState == PlayerState.Idle || PlayerStatus.Instance.currentState == PlayerState.Moving);
     }
+    Collider[] colliders = new Collider[10];
     async UniTask AttackAsync()
     {
         PlayerStatus.Instance.currentState = PlayerState.Attacking;
 
-        // Perform attack
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
+        // Calculate attack position with offset based on facing direction
+        Vector3 attackPosition = attackPoint.position;
+        if (playerMovement != null)
+        {
+            float direction = playerMovement.lookingRight ? 1f : -1f;
+            attackPosition += Vector3.right * attackOffset * direction;
+        }
 
-        foreach (Collider enemy in hitEnemies)
+        Physics.OverlapSphereNonAlloc(attackPosition, attackRange, colliders, enemyLayer);
+
+        foreach (Collider enemy in colliders)
         {
             // Deal damage to enemy
-           // enemy.GetComponent<Enemy>()?.TakeDamage(attackDamage);
+           if (enemy != null)
+           {
+               Enemy enemyScript = enemy.GetComponent<Enemy>();
+               if (enemyScript != null && enemyScript.State != EnemyState.Hurt)
+               {
+                   enemyScript.TakeDamage(attackDamage).Forget();
+                   enemyHurt?.Invoke(enemy.transform.position);
+               }
+           }
         }
 
         // Wait for cooldown
@@ -75,8 +93,16 @@ public class PlayerAttack : MonoBehaviour
         if (attackPoint == null)
             return;
 
+        // Calculate attack position with offset for gizmo
+        Vector3 attackPosition = attackPoint.position;
+        if (playerMovement != null)
+        {
+            float direction = playerMovement.lookingRight ? 1f : -1f;
+            attackPosition += Vector3.right * attackOffset * direction;
+        }
+
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireSphere(attackPosition, attackRange);
     }
 
     public bool CanAttack(){

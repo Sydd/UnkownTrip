@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
@@ -7,7 +8,11 @@ public class PlayerAnimations : MonoBehaviour
     private Transform player;
     private Vector3 orignalScale;
     [SerializeField] private SpriteRenderer spriteRenderer;
-
+    [SerializeField] private Sprite[] idle;
+    [SerializeField] private Sprite[] moving;
+    [SerializeField] private Sprite[] attacking;
+    [SerializeField] private Sprite[] dash;
+    private Sprite[] currentAnimation;        int count = 0;
     internal void PlayHurtAnimation()
     {
         if (spriteRenderer != null)
@@ -23,7 +28,12 @@ public class PlayerAnimations : MonoBehaviour
                 });
         }
     }
-    
+    private void Start()
+    {
+        currentAnimation=idle;
+        RunAnimations().Forget();
+    }
+
     private void UpdateColor(Color color)
     {
         if (spriteRenderer != null)
@@ -43,26 +53,38 @@ public class PlayerAnimations : MonoBehaviour
         UpdateAnimationState();
     }
 
+    async UniTask RunAnimations(){
+        while (PlayerStatus.Instance.currentState != PlayerState.Dead){
+            spriteRenderer.sprite = currentAnimation[count];
+            count = (count + 1) % currentAnimation.Length;
+            await UniTask.Delay(250);
+        }
+    }
+
+    private PlayerState currentState;     
     private void UpdateAnimationState()
     {
-        PlayerState currentState = PlayerStatus.Instance.currentState;
-
+        PlayerState newstate = PlayerStatus.Instance.currentState;
+        if (currentState == newstate) return;
+        currentState = newstate;
+        count = 0;
         switch (currentState)
         {
             case PlayerState.Idle:
-                player.localScale = orignalScale;
+                currentAnimation = idle;
+                // player.localScale = orignalScale;
                 break;
             case PlayerState.Moving:
-                player.localScale = orignalScale * 1.1f;
+                currentAnimation = moving;
                 break;
             case PlayerState.Attacking:
-                player.localScale = orignalScale * 1.5f;
+                currentAnimation = attacking;
                 break;
             case PlayerState.Dash:
-                player.localScale = orignalScale * 0.7f;
+                currentAnimation = dash;
                 break;
             default:
-                player.localScale = orignalScale;
+                currentAnimation = idle;
                 break;
         }
     }

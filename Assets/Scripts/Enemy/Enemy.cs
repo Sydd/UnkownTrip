@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,10 +15,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private int life = 50;
+ public EnemyState State = EnemyState.Idle;
     private PlayerStatus playerStatus;
     private Transform player;
-    private bool isMoving = false;
-    bool attacking = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +29,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     async void Update()
     {
-        if (!isMoving && !attacking && player != null)
+        if (State == EnemyState.Idle && player != null)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
             if (distanceToPlayer > stopDistance)
@@ -41,7 +44,7 @@ public class Enemy : MonoBehaviour
     }
     private async UniTask MoveTowardPlayerAsync()
     {
-        isMoving = true;
+        State = EnemyState.Moving;
         
         Vector3 startPosition = transform.position;
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
@@ -50,7 +53,7 @@ public class Enemy : MonoBehaviour
         // Check for walls before moving
         if (Physics.Raycast(startPosition, directionToPlayer, viewDistance, wallLayer))
         {
-            isMoving = false;
+            State = EnemyState.Idle;
             return;
         }
         
@@ -60,23 +63,24 @@ public class Enemy : MonoBehaviour
         
         while (elapsed < duration)
         {
+            if (State == EnemyState.Hurt) break;
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
             if (this == null) break;
             transform.position = Vector3.Lerp(startPosition, targetPosition, t);
             await UniTask.Yield();
         }
-        if (transform != null)
+        if (this == null) return;
         transform.position = targetPosition;
-        isMoving = false;
+        State = EnemyState.Idle;
     }
 
     private async UniTask AttackPlayerAsync()
     {
+        State = EnemyState.Attacking;
         bool animating = true;
         float attackDistance = stopDistance * 1.2f;
         bool damaged = false;
-        attacking = true;
         Collider[] hitEnemies = new Collider[1];
         Vector3 directionToPlayer = (player.position - transform.position).normalized * attackDistance;
         Vector3 startPosition = transform.position;
@@ -89,6 +93,10 @@ public class Enemy : MonoBehaviour
         while (elapsed < duration)
         {
             if (this == null) break;
+            if (State == EnemyState.Hurt){
+                transform.localScale = originalScale;
+                return;
+            }
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
                 transform.position = Vector3.Lerp(startPosition, targetPosition, t);
@@ -106,7 +114,7 @@ public class Enemy : MonoBehaviour
         if (this == null) return;
         transform.localScale = originalScale;
         await UniTask.WaitForSeconds(0.5f);
-        attacking = false;
+        State = EnemyState.Idle;
     }
 
     void OnDrawGizmos()
@@ -116,11 +124,63 @@ public class Enemy : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
+
+    internal async UniTask TakeDamage(int attackDamage)
+    {
+        State = EnemyState.Hurt;
+        life -= attackDamage;
+        if (life <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            PlayHurtAnimation();
+        }
+        await UniTask.WaitForSeconds(PlayerAttack.attackCooldown);
+        State = EnemyState.Idle;
+    }
+
+    private void PlayHurtAnimation()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        Vector3 originalScale = transform.localScale;
+        Color originalColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
+        
+        LeanTween.cancel(gameObject);
+        
+        // Scale down slightly
+        LeanTween.scale(gameObject, originalScale * 0.9f, 0.15f).setOnComplete(() =>
+        {
+            // Scale back to original
+            LeanTween.scale(gameObject, originalScale, 0.15f);
+        });
+        
+        // Turn red then back to original color
+        if (spriteRenderer != null)
+        {
+            LeanTween.value(gameObject, originalColor, Color.red, 0.15f)
+                .setOnUpdate((Color color) =>
+                {
+                    if (spriteRenderer != null)
+                        spriteRenderer.color = color;
+                })
+                .setOnComplete(() =>
+                {
+                    LeanTween.value(gameObject, Color.red, originalColor, 0.15f)
+                        .setOnUpdate((Color color) =>
+                        {
+                            if (spriteRenderer != null)
+                                spriteRenderer.color = color;
+                        });
+                });
+        }
+    }
 }
 public enum EnemyState
 {
     Idle,
     Moving,
-    Attacking
-
+    Attacking,
+    Hurt
 }

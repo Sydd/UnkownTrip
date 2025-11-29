@@ -12,11 +12,13 @@ public class FloatingText : MonoBehaviour
     private List<TextMeshPro> textPool = new List<TextMeshPro>();
     private Camera mainCamera;
     private PlayerStatus playerStatus;
+    [SerializeField]private PlayerAttack playerAttack;
 
     void Start()
     {
         mainCamera = Camera.main;
         playerStatus = PlayerStatus.Instance;
+        if (playerAttack == null) playerAttack = GameObject.FindObjectOfType<PlayerAttack>();
         
         // Initialize pool
         for (int i = 0; i < poolSize; i++)
@@ -28,6 +30,10 @@ public class FloatingText : MonoBehaviour
         if (playerStatus != null)
         {
             playerStatus.OnDamaged += HandleDamaged;
+        }
+        if (playerAttack != null)
+        {
+            playerAttack.enemyHurt += (Vector3 pos) => SpawnDamageText(10, pos);
         }
     }
 
@@ -54,10 +60,10 @@ public class FloatingText : MonoBehaviour
 
     private void HandleDamaged()
     {
-        SpawnDamageText(10);
+        SpawnDamageText(10, playerStatus.transform.position);
     }
 
-    private void SpawnDamageText(float damage)
+    private void SpawnDamageText(float damage, Vector3 position)
     {
         TextMeshPro text = GetAvailableText();
         
@@ -65,7 +71,7 @@ public class FloatingText : MonoBehaviour
         {
             text.text = $"-{damage:F0}";
             text.color = Color.red;
-            text.transform.position = playerStatus.transform.position + Vector3.up;
+            text.transform.position = position + Vector3.up;
             text.gameObject.SetActive(true);
             
             // Animate text going up and fading out
