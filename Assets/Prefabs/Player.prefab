@@ -287,13 +287,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 10
   attackRange: 2.17
-  attackCooldown: 0.5
   dashDuration: 0.5
   dashCooldown: 1
+  attackOffset: 2.42
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   attackPoint: {fileID: 8669749485963643643}
+  playerMovement: {fileID: 292655372566760608}
 --- !u!114 &8614327674758080956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +324,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hurtFadeDuration: 0.3
   spriteRenderer: {fileID: 8851491720748448195}
+  idle:
+  - {fileID: 21300000, guid: 5782458d5fc3fdd45b525cbb89a47215, type: 3}
+  - {fileID: 21300000, guid: 29e25470607ee3143ae2f1f7b07c36f0, type: 3}
+  moving:
+  - {fileID: 21300000, guid: 781cc660290d21c4b9222001f7e02902, type: 3}
+  - {fileID: 21300000, guid: 9f822d9581edc7b4cbce7e741e3fdbe3, type: 3}
+  - {fileID: 21300000, guid: 2837b6eb11555964eb018063c3ca3045, type: 3}
+  - {fileID: 21300000, guid: 2bb7e3089e4b493429787184da55353b, type: 3}
+  attacking:
+  - {fileID: 21300000, guid: 781cc660290d21c4b9222001f7e02902, type: 3}
+  - {fileID: 21300000, guid: 9f822d9581edc7b4cbce7e741e3fdbe3, type: 3}
+  dash:
+  - {fileID: 21300000, guid: 781cc660290d21c4b9222001f7e02902, type: 3}
+  - {fileID: 21300000, guid: 9f822d9581edc7b4cbce7e741e3fdbe3, type: 3}
 --- !u!1 &8087352584277316775
 GameObject:
   m_ObjectHideFlags: 0

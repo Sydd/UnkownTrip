@@ -76,15 +76,21 @@ public class Enemy : MonoBehaviour
     }
 
     private async UniTask AttackPlayerAsync()
-    {
-        State = EnemyState.Attacking;
-        bool animating = true;
+    {   
         float attackDistance = stopDistance * 1.2f;
-        bool damaged = false;
-        Collider[] hitEnemies = new Collider[1];
-        Vector3 directionToPlayer = (player.position - transform.position).normalized * attackDistance;
+         Vector3 directionToPlayer = (player.position - transform.position).normalized * attackDistance;
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = startPosition + directionToPlayer;
+        if (Physics.Raycast(startPosition, directionToPlayer, viewDistance, wallLayer))
+        {
+            State = EnemyState.Idle;
+            return;
+        }
+        State = EnemyState.Attacking;
+        bool animating = true;
+        bool damaged = false;
+        Collider[] hitEnemies = new Collider[1];
+
         Vector3 originalScale = transform.localScale;        
         LeanTween.scale(gameObject, Vector3.one * 1.5f, 0.5f).setEasePunch().setOnComplete(() => animating = false);
         await UniTask.WaitUntil(() => !animating);
