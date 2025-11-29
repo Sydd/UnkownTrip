@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1846509727287167905}
   - component: {fileID: 402657140654169848}
   - component: {fileID: 2537938819810843245}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 4054574806995984268}
   - component: {fileID: 8614327674758080956}
   - component: {fileID: 3886276780789612330}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,6 +271,8 @@ MonoBehaviour:
   moveSpeed: 10
   gravity: -9.81
   dashSpeed: 20
+  lookingRight: 1
+  spriteRenderer: {fileID: 8851491720748448195}
 --- !u!114 &4054574806995984268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,7 +288,7 @@ MonoBehaviour:
   attackDamage: 10
   attackRange: 2.17
   attackCooldown: 0.5
-  dashDuration: 0.2
+  dashDuration: 0.5
   dashCooldown: 1
   enemyLayer:
     serializedVersion: 2
@@ -304,6 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4d1b61ff4ca4ef280a14694f28f66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnimations: {fileID: 3886276780789612330}
+  life: 100
   currentState: 0
 --- !u!114 &3886276780789612330
 MonoBehaviour:
@@ -317,6 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89363cad66a7a47daa1d42048aa72c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hurtFadeDuration: 0.3
+  spriteRenderer: {fileID: 8851491720748448195}
 --- !u!1 &8087352584277316775
 GameObject:
   m_ObjectHideFlags: 0
