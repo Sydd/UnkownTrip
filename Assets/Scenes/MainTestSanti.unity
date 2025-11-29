@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!212 &523892930 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8851491720748448195, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
+  m_PrefabInstance: {fileID: 5856583442085871624}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &788273844
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +455,7 @@ GameObject:
   - component: {fileID: 1678628505}
   - component: {fileID: 1678628504}
   - component: {fileID: 1678628508}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,7 +569,7 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  attackRange: 1.15
+  attackRange: 0.63
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -725,6 +730,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 292655372566760608, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
+      propertyPath: dashSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 292655372566760608, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 523892930}
+    - target: {fileID: 3886276780789612330, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 523892930}
+    - target: {fileID: 4054574806995984268, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
+      propertyPath: dashDuration
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6890899149587000901, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
       propertyPath: m_Layer
       value: 7

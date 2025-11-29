@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackDamage = 10f;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private float attackCooldown = 0.5f;
-    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashDuration = .5f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Transform attackPoint;

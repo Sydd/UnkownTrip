@@ -62,10 +62,11 @@ public class Enemy : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
+            if (this == null) break;
             transform.position = Vector3.Lerp(startPosition, targetPosition, t);
             await UniTask.Yield();
         }
-        
+        if (transform != null)
         transform.position = targetPosition;
         isMoving = false;
     }
@@ -87,13 +88,14 @@ public class Enemy : MonoBehaviour
         float duration = .3f;
         while (elapsed < duration)
         {
+            if (this == null) break;
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+                transform.position = Vector3.Lerp(startPosition, targetPosition, t);
             if (!damaged)
             {
                 Physics.OverlapSphereNonAlloc(transform.position, attackRange, hitEnemies, playerLayer);
-                if (hitEnemies[0] != null)
+                if (hitEnemies[0] != null && playerStatus.currentState!= PlayerState.Dash )
                 {
                     playerStatus.Hurt();
                     damaged = true;
@@ -101,7 +103,7 @@ public class Enemy : MonoBehaviour
             }
             await UniTask.Yield();
         }
-        
+        if (this == null) return;
         transform.localScale = originalScale;
         await UniTask.WaitForSeconds(0.5f);
         attacking = false;

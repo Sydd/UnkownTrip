@@ -6,7 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float gravity = -9.81f;
-public float dashSpeed = 20f;
+    public float dashSpeed = 20f;
+    public bool lookingRight = true;
+    public SpriteRenderer spriteRenderer;
     private CharacterController controller;
     private Vector3 velocity;
 
@@ -31,8 +33,16 @@ public float dashSpeed = 20f;
             Vector3 speed = IsDashing() ? move * dashSpeed : move * moveSpeed;
             controller.Move(speed * Time.deltaTime);
 
-            // Opcional: rotar al personaje en dirección de movimiento
-            transform.rotation = Quaternion.LookRotation(move);
+            // Update facing direction based on horizontal input
+            if (h > 0 && !lookingRight)
+            {
+                Flip();
+            }
+            else if (h < 0 && lookingRight)
+            {
+                Flip();
+            }
+
             if (!IsDashing()) PlayerStatus.Instance.currentState = PlayerState.Moving;
         }
         else
@@ -48,7 +58,6 @@ public float dashSpeed = 20f;
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        
     }
 
     private bool CanMove()
@@ -56,8 +65,17 @@ public float dashSpeed = 20f;
         return PlayerStatus.Instance.currentState == PlayerState.Idle || 
                PlayerStatus.Instance.currentState == PlayerState.Moving || IsDashing();
     }
+
     private bool IsDashing()
     {
         return PlayerStatus.Instance.currentState == PlayerState.Dash;
+    }
+
+    private void Flip()
+    {
+        lookingRight = !lookingRight;
+        Vector3 scale = spriteRenderer.gameObject.transform.localScale;
+        spriteRenderer.flipX = !spriteRenderer.flipX;
+        spriteRenderer.transform.localScale = scale;
     }
 }

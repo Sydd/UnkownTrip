@@ -6,7 +6,7 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private float hurtFadeDuration = 0.3f;
     private Transform player;
     private Vector3 orignalScale;
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     internal void PlayHurtAnimation()
     {
@@ -36,7 +36,6 @@ public class PlayerAnimations : MonoBehaviour
     {
         player = this.transform;
         orignalScale = player.localScale;
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
