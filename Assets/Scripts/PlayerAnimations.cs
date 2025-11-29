@@ -1,14 +1,42 @@
+using System;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
+    [SerializeField] private float hurtFadeDuration = 0.3f;
     private Transform player;
     private Vector3 orignalScale;
+    private SpriteRenderer spriteRenderer;
+
+    internal void PlayHurtAnimation()
+    {
+        if (spriteRenderer != null)
+        {
+            LeanTween.cancel(gameObject);
+            
+            // Fade to red
+            LeanTween.value(gameObject, UpdateColor, spriteRenderer.color, Color.red, hurtFadeDuration)
+                .setOnComplete(() =>
+                {
+                    // Fade back to white
+                    LeanTween.value(gameObject, UpdateColor, spriteRenderer.color, Color.white, hurtFadeDuration);
+                });
+        }
+    }
+    
+    private void UpdateColor(Color color)
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = color;
+        }
+    }
 
     void Awake()
     {
         player = this.transform;
         orignalScale = player.localScale;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
