@@ -471,6 +471,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4264893306078277212}
   m_SourcePrefab: {fileID: 100100000, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
+--- !u!4 &184029096725638260 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2196682490011045688, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
+  m_PrefabInstance: {fileID: 2085697051769119564}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4420105613485783128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2424833016669969172, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
@@ -487,6 +492,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975116d07778a40b39cf8e046f0c0733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &4851810066260450215 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6891903704867895531, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
+  m_PrefabInstance: {fileID: 2085697051769119564}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7128945463040543997 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9087974102247747505, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
@@ -509,8 +519,8 @@ MonoBehaviour:
   - {fileID: 8084864632156221992}
   - {fileID: 689298476959226654}
   - {fileID: 7438796621234612713}
-  portalPosition: {fileID: 0}
-  playerSpawnPoint: {fileID: 0}
+  portalPosition: {fileID: 184029096725638260}
+  playerSpawnPoint: {fileID: 4851810066260450215}
   levelMusic: {fileID: 0}
   levelName: 
 --- !u!4 &7712451858391731577 stripped
