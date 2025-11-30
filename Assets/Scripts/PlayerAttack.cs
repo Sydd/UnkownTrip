@@ -45,7 +45,7 @@ public class PlayerAttack : MonoBehaviour
         
         // Wait for cooldown
         await UniTask.Delay(System.TimeSpan.FromSeconds(dashCooldown));
-        
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.PlayerDash);
         isDashOnCooldown = false;
     }
 
@@ -78,13 +78,14 @@ public class PlayerAttack : MonoBehaviour
                {
                    enemyScript.TakeDamage(attackDamage).Forget();
                    enemyHurt?.Invoke(enemy.transform.position);
+                   AudioManager.Instance.PlaySFX(AudioManager.Instance.PlayerHit);
                }
            }
         }
 
         // Wait for cooldown
         await UniTask.Delay(System.TimeSpan.FromSeconds(attackCooldown));
-
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.SwordSlash);
         PlayerStatus.Instance.currentState = PlayerState.Idle;
     }
 
