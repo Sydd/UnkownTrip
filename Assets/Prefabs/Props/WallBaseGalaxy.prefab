@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3614654888277940007
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 305445260870865601, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: abd7a961179bc034981ed313f9d7b490, type: 2}
+    - target: {fileID: 518227726281940318, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 37c8ceb8a86529346a247bf5c6f93ac2, type: 2}
+    - target: {fileID: 1210220413466145095, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 37c8ceb8a86529346a247bf5c6f93ac2, type: 2}
+    - target: {fileID: 3681855411523837581, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: abd7a961179bc034981ed313f9d7b490, type: 2}
+    - target: {fileID: 4808736479302222670, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 890db2c1fc835c942966d62335ec4e3c, type: 2}
+    - target: {fileID: 7247823341591352836, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247823341591352836, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247823341591352836, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247823341591352836, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247823341591352836, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247823341591352836, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247823341591352836, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247823341591352836, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247823341591352836, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247823341591352836, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7542476762570798630, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
+      propertyPath: m_Name
+      value: WallBaseGalaxy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5aa3fc52fd0f476478429bc5ed5f51ce, type: 3}
