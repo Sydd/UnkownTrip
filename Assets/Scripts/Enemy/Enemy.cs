@@ -132,6 +132,7 @@ public class Enemy : MonoBehaviour
         Collider[] hitEnemies = new Collider[1];
         LeanTween.scale(gameObject, Vector3.one * 1.5f, 0.5f).setEasePunch().setOnComplete(() => animating = false);
         await UniTask.WaitUntil(() => !animating || State == EnemyState.Hurt);
+        if (this == null) return;
         transform.localScale = originalScale;
         if (State == EnemyState.Hurt){
             isAttacking = false;
