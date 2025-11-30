@@ -9,9 +9,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource sfxSource;
 
     [Header("Audio Clips")]
-    public AudioClip backgroundMusic;
-    public AudioClip clickSound;
-    public AudioClip explosionSound;
+    public AudioClip bgmMenu;
+    public AudioClip bgmForest;
+    public AudioClip bgmGalaxy;
+    public AudioClip bgmSea;
+    public AudioClip SwordSlash;
+    public AudioClip PlayerHit;
+    public AudioClip PlayerDash;
+
 
     private void Awake()
     {
@@ -27,7 +32,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayMusic(backgroundMusic);
+        PlayMusic(bgmMenu);
     }
 
     public void PlayMusic(AudioClip clip)
