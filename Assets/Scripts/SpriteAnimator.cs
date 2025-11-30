@@ -11,6 +11,17 @@ public class SpriteAnimator : MonoBehaviour
     private void Start()
     {
         RunAnimation().Forget();
+        StartScaleAnimation();
+    }
+    
+    private void StartScaleAnimation()
+    {
+        Vector3 originalScale = transform.localScale;
+        Vector3 targetScale = originalScale * 1.2f;
+        
+        LeanTween.scale(gameObject, targetScale, 1f)
+            .setEaseInOutSine()
+            .setLoopPingPong();
     }
     
     private async UniTask RunAnimation()

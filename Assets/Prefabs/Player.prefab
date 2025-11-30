@@ -286,10 +286,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  attackRange: 2.17
+  attackRange: 1.63
   dashDuration: 0.5
   dashCooldown: 1
-  attackOffset: 2.42
+  attackOffset: 1.44
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -339,6 +339,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 508d9951ee14163459b8dc92e1e94231, type: 3}
   - {fileID: 21300000, guid: 602936c799c4b124d847e286b239baf4, type: 3}
   - {fileID: 21300000, guid: 071732645e556a04fbd761a8bfda823a, type: 3}
+  timeStep: 100
 --- !u!1 &8087352584277316775
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3147733255438468950}
   - component: {fileID: 8851491720748448195}
+  - component: {fileID: 4137164275797790352}
   m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -423,3 +425,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4137164275797790352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8087352584277316775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58dfdae0088234d15b4f9d04cf822827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOffset: 0
+  precision: 100
+  maxYRotation: 45

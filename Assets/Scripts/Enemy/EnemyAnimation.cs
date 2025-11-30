@@ -12,6 +12,8 @@ public class EnemyAnimation : MonoBehaviour
  [SerializeField] private List<Sprite> idleSprites;
  [SerializeField] private List<Sprite> currentAnimation;
  [SerializeField] private List<Sprite> attackDashAnimation;
+    public int sortingOffset = 0;   // use this if you want manual fine tuning
+    public float precision = 100f;  // how accurate the sorting is
 
     int count = 0;
     private bool facingRight = true;
@@ -98,5 +100,11 @@ public class EnemyAnimation : MonoBehaviour
             facingRight = shouldFaceRight;
             spriteRenderer.flipX = !spriteRenderer.flipX;
         }
+    }
+
+        void LateUpdate()
+    {
+        // Sorting based on world Z position
+        spriteRenderer.sortingOrder = (int)(-transform.position.z * precision) + sortingOffset;
     }
 }
