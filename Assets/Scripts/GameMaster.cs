@@ -61,8 +61,7 @@ public class GameMaster : MonoBehaviour
             forestCounter--;
             forestTrophie.SetActive(forestCounter == 0);
         }
-        await UniTask.Delay(1000);
-        if (levels.Count > 0) portal.isActive = true;
+        await UniTask.Delay(500);
     }
     private async UniTask HandlePlayerEnterPortal()
     {
@@ -93,6 +92,10 @@ public class GameMaster : MonoBehaviour
             currentLevel.gameObject.SetActive(true);   
             playerStatus.transform.position = currentLevel.playerSpawnPoint.position;
             onLevel = true;
+            if (levels.Count == 0)
+            {
+                portal.isActive = false;
+            }
         }
 
         fadeTool.FadeIn();

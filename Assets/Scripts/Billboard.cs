@@ -5,7 +5,7 @@ public class Billboard : MonoBehaviour
     private Camera mainCamera;
     public int sortingOffset = 0;   // use this if you want manual fine tuning
     public float precision = 100f;  // how accurate the sorting is
-    public float maxYRotation = 45f; // max rotation angle in degrees
+    public float maxYRotation = 20f; // max rotation angle in degrees
     
     void Start()
     {

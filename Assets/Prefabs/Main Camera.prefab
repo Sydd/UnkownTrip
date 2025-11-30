@@ -112,5 +112,5 @@ MonoBehaviour:
   lookAheadDistance: 0
   lookAheadSmooth: 0
   clampEnabled: 1
-  minBounds: {x: -8, y: 5, z: -15}
+  minBounds: {x: -8, y: 5, z: -17}
   maxBounds: {x: 12, y: 8, z: -6}
