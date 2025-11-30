@@ -19,19 +19,35 @@ public class Portal : MonoBehaviour
     [SerializeField] private List<Sprite> idleAmarillaSprites;
     [SerializeField] private List<Sprite> idleTurquesaSprites;
     
-    private void Start()
+    private void Awake()
     {
-        Spawn().Forget();
+        // Set sprites before Start() is called on SpriteAnimators
+        if (portalParteAmarilla != null)
+        {
+            portalParteAmarilla.spritesToAnimate = new List<Sprite>(idleAmarillaSprites);
+            Debug.Log($"Amarilla sprites count: {idleAmarillaSprites.Count}");
+        }
+        if (portalParteMorada != null)
+        {
+            portalParteMorada.spritesToAnimate = new List<Sprite>(idleMoradaSprites);
+            Debug.Log($"Morada sprites count: {idleMoradaSprites.Count}");
+        }
+        if (portalParteTurquesa != null)
+        {
+            portalParteTurquesa.spritesToAnimate = new List<Sprite>(idleTurquesaSprites);
+            Debug.Log($"Turquesa sprites count: {idleTurquesaSprites.Count}");
+        }
+        if (portalParteVioleta != null)
+        {
+            portalParteVioleta.spritesToAnimate = new List<Sprite>(idleVioletaSprites);
+            Debug.Log($"Violeta sprites count: {idleVioletaSprites.Count}");
+        }
     }
     
-    private async UniTask Spawn()
+    private void Start()
     {
-        portalParteAmarilla.spritesToAnimate = idleAmarillaSprites;
-        portalParteMorada.spritesToAnimate = idleMoradaSprites;
-        portalParteTurquesa.spritesToAnimate = idleTurquesaSprites;
-        portalParteVioleta.spritesToAnimate = idleVioletaSprites;
-        await UniTask.Delay(500);
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

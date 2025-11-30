@@ -68,6 +68,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f735895cfb9130c4c86662f46b18f80b, type: 3}
   - {fileID: 21300000, guid: 4f432d2c99dcbf4418aa755c8ab69f4f, type: 3}
   currentAnimation: []
+  attackDashAnimation: []
 --- !u!212 &7785553299623692384
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -212,6 +213,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  life: 50
+  life: 20
   enemyAnimations: {fileID: 2934797573446676236}
   State: 0
