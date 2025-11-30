@@ -15,6 +15,13 @@ public class GameMaster : MonoBehaviour
     [SerializeField] private bool onLevel = false;
     [SerializeField] private EntryBase entryBase;
     [SerializeField] private PlayerStatus playerStatus;
+
+    public GameObject seaTrophie;
+    private int seaCounter =2;
+    private int galaxyCounter =2;
+    private int forestCounter =2;
+    public GameObject galaxyTrophie;
+    public GameObject forestTrophie;
     private Level currentLevel;
     private void Awake()
     {
@@ -39,6 +46,21 @@ public class GameMaster : MonoBehaviour
         await UniTask.Delay(1000);
         portal.transform.position = level.portalPosition.position;
         portal.gameObject.SetActive(true);
+        if (level.levelName == "Sea")
+        {
+            seaCounter--;
+            seaTrophie.SetActive(seaCounter == 0);
+        }
+        else if (level.levelName == "Galaxy")
+        {
+            galaxyCounter--;
+            galaxyTrophie.SetActive(galaxyCounter == 0);
+        }
+        else if (level.levelName == "Forest")
+        {
+            forestCounter--;
+            forestTrophie.SetActive(forestCounter == 0);
+        }
         await UniTask.Delay(1000);
         if (levels.Count > 0) portal.isActive = true;
     }

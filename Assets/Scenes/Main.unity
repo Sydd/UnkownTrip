@@ -348,6 +348,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8557809156864469412, guid: 93da3dce22fad984b915a9850d2042ec, type: 3}
   m_PrefabInstance: {fileID: 50799555}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &73560970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7121168895315920137, guid: 3e647931f16d47444999371c75efb619, type: 3}
+  m_PrefabInstance: {fileID: 1468615611}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &246946510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -424,6 +429,10 @@ PrefabInstance:
     - target: {fileID: 1824795817787440971, guid: bb3295c01d2900a43b474fac4db2d615, type: 3}
       propertyPath: m_Name
       value: BaseLevelGalaxy-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700193631736388119, guid: bb3295c01d2900a43b474fac4db2d615, type: 3}
+      propertyPath: levelName
+      value: Galaxy
       objectReference: {fileID: 0}
     - target: {fileID: 7649504042546615854, guid: bb3295c01d2900a43b474fac4db2d615, type: 3}
       propertyPath: m_LocalPosition.x
@@ -589,6 +598,9 @@ MonoBehaviour:
   onLevel: 0
   entryBase: {fileID: 5237709694785817686}
   playerStatus: {fileID: 1161266447}
+  seaTrophie: {fileID: 73560970}
+  galaxyTrophie: {fileID: 1441118833}
+  forestTrophie: {fileID: 1443732398}
 --- !u!4 &348963632
 Transform:
   m_ObjectHideFlags: 0
@@ -694,6 +706,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1407165584}
     m_Modifications:
+    - target: {fileID: 734225567369411527, guid: cd83a94683783f749ab273bbc1ca0e3a, type: 3}
+      propertyPath: levelName
+      value: Galaxy
+      objectReference: {fileID: 0}
     - target: {fileID: 2322519178877722267, guid: cd83a94683783f749ab273bbc1ca0e3a, type: 3}
       propertyPath: m_Name
       value: BaseLevelGalaxy-1
@@ -1716,6 +1732,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4264893306078277212, guid: 798bd7886ffbade41a26b6c0850ae172, type: 3}
+      propertyPath: levelName
+      value: Sea
+      objectReference: {fileID: 0}
     - target: {fileID: 7128945463040543997, guid: 798bd7886ffbade41a26b6c0850ae172, type: 3}
       propertyPath: m_Name
       value: BaseLevelSea-1
@@ -1819,6 +1839,10 @@ PrefabInstance:
     - target: {fileID: 5837488548677422374, guid: 0217fb092e9dc8347968f2f2ab804859, type: 3}
       propertyPath: m_Name
       value: BaseLevelForest-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8865806767721670778, guid: 0217fb092e9dc8347968f2f2ab804859, type: 3}
+      propertyPath: levelName
+      value: Forest
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1951,6 +1975,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6109500976834434623, guid: da8a43935093a0f4da9a80d804745ff3, type: 3}
+      propertyPath: levelName
+      value: Forest
+      objectReference: {fileID: 0}
     - target: {fileID: 9133878821048005475, guid: da8a43935093a0f4da9a80d804745ff3, type: 3}
       propertyPath: m_Name
       value: BaseLevelForest-2
@@ -1976,6 +2004,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 075cb2c6c49364aa2a7d6539500477ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1441118833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2954059908983692747, guid: 231bbc19231d0c84db611bec8fde23bc, type: 3}
+  m_PrefabInstance: {fileID: 1583930864}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1443732398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9133210328285946198, guid: 6c97194de0d78d74c902aaaa22045dba, type: 3}
+  m_PrefabInstance: {fileID: 1650331367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1468615611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2495,6 +2533,10 @@ PrefabInstance:
     - target: {fileID: 6038459827405677374, guid: 316aa9686854de848af018b726b60ffe, type: 3}
       propertyPath: m_Name
       value: BaseLevelSea-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775171070088087138, guid: 316aa9686854de848af018b726b60ffe, type: 3}
+      propertyPath: levelName
+      value: Sea
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
