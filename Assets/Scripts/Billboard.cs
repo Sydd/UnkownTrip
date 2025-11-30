@@ -13,8 +13,13 @@ public class Billboard : MonoBehaviour
     {
         if (mainCamera != null)
         {
-            transform.LookAt(mainCamera.transform);
-            transform.Rotate(0, 180, 0);
+            Vector3 directionToCamera = mainCamera.transform.position - transform.position;
+            directionToCamera.y = 0; // Keep it flat on the Y axis, no X rotation
+            
+            if (directionToCamera != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(-directionToCamera);
+            }
         }
     }
 }
