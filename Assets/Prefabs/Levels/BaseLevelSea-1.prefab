@@ -56,8 +56,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseLevelSea-1
       objectReference: {fileID: 0}
+    - target: {fileID: 9087974102247747505, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9087974102247747505, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4264893306078277212}
   m_SourcePrefab: {fileID: 100100000, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
+--- !u!1 &7128945463040543997 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9087974102247747505, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
+  m_PrefabInstance: {fileID: 2085697051769119564}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4264893306078277212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7128945463040543997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 075cb2c6c49364aa2a7d6539500477ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesInLevel: []
+  portalPosition: {fileID: 0}
+  playerSpawnPoint: {fileID: 0}
+  levelName: 
