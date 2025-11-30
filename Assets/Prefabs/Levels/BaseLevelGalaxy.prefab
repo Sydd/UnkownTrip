@@ -12,6 +12,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseLevelGalaxy
       objectReference: {fileID: 0}
+    - target: {fileID: 3062980488554758112, guid: cdd5233bc2f96d446bc269b510bdea3f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3162370d58c71044d842e13860f30a8f, type: 2}
+    - target: {fileID: 5432909719457163298, guid: cdd5233bc2f96d446bc269b510bdea3f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3162370d58c71044d842e13860f30a8f, type: 2}
+    - target: {fileID: 8502534101811708364, guid: cdd5233bc2f96d446bc269b510bdea3f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3162370d58c71044d842e13860f30a8f, type: 2}
     - target: {fileID: 8638528550895044645, guid: cdd5233bc2f96d446bc269b510bdea3f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -55,7 +67,7 @@ PrefabInstance:
     - target: {fileID: 9155154940765861309, guid: cdd5233bc2f96d446bc269b510bdea3f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 3162370d58c71044d842e13860f30a8f, type: 2}
+      objectReference: {fileID: 2100000, guid: 38eafa4effc0737458f865da040528c3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
