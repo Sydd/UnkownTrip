@@ -790,9 +790,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 887567144}
   sfxSource: {fileID: 887567143}
-  backgroundMusic: {fileID: 0}
-  clickSound: {fileID: 0}
-  explosionSound: {fileID: 0}
+  bgmMenu: {fileID: 8300000, guid: 229e6958ebc163446827592185203357, type: 3}
+  bgmForest: {fileID: 0}
+  bgmGalaxy: {fileID: 0}
+  bgmSea: {fileID: 0}
+  SwordSlash: {fileID: 8300000, guid: 81d426e5e7072da4a80a2a4a1e7874d4, type: 3}
+  PlayerHit: {fileID: 8300000, guid: 2229273743e94674485429955fbf626b, type: 3}
+  PlayerDash: {fileID: 8300000, guid: 9afeb1abaadcb06458494365a72f515c, type: 3}
 --- !u!82 &887567143
 AudioSource:
   m_ObjectHideFlags: 0
