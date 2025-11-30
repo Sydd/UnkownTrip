@@ -56,9 +56,8 @@ public class MainMenu : MonoBehaviour
     {
         _mainMenu.SetActive(false);
         _optionMenu.SetActive(false);
-        _menuBackground.SetActive(true);
+        _menuBackground.SetActive(false);
         SceneLoader.Instance.LoadScene("Main");
-        Debug.Log("asd");
     }
 
     private void ShowMainMenu()
