@@ -7,7 +7,7 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] public static float attackCooldown = 0.5f;
+    [SerializeField] public static float attackCooldown = 0.2f;
     [SerializeField] private float dashDuration = .5f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private float attackOffset = 1f;

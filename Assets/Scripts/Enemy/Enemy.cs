@@ -194,6 +194,8 @@ public class Enemy : MonoBehaviour
         life -= attackDamage;
         if (life <= 0)
         {
+            State = EnemyState.Dying;
+            enemyAnimations.SetDie();
             OnDie?.Invoke();
         }
         else
@@ -212,5 +214,6 @@ public enum EnemyState
     Idle,
     Moving,
     Attacking,
-    Hurt
+    Hurt,
+    Dying
 }
