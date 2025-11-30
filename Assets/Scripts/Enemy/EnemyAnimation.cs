@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -106,5 +107,16 @@ public class EnemyAnimation : MonoBehaviour
     {
         // Sorting based on world Z position
         spriteRenderer.sortingOrder = (int)(-transform.position.z * precision) + sortingOffset;
+    }
+
+    internal void SetDie()
+    {
+        LeanTween.cancel(gameObject);
+        
+        Vector3 originalScale = transform.localScale;
+        Vector3 targetScale = originalScale * 1.5f;
+        
+        LeanTween.scale(gameObject, targetScale, 0.3f)
+            .setEaseOutBack();
     }
 }

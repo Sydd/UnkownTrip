@@ -44,6 +44,7 @@ public class GameMaster : MonoBehaviour
     }
     private async UniTask HandlePlayerEnterPortal()
     {
+        playerStatus.GetComponent<CharacterController>().enabled = false;
         portal.isActive = false;
         fadeTool.FadeOut();
         await UniTask.Delay(2000);
@@ -73,6 +74,9 @@ public class GameMaster : MonoBehaviour
         }
 
         fadeTool.FadeIn();
+        await UniTask.Delay(500);
+        playerStatus.GetComponent<CharacterController>().enabled = true;
+
     }
 
     private Level GetRandomLevel(){
