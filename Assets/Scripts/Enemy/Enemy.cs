@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     public EnemyState State = EnemyState.Idle;
 
     public Action OnDie;
+       Vector3 originalScale;
 
     private PlayerStatus playerStatus;
     private Transform player;
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
         playerStatus = PlayerStatus.Instance;
         player = playerStatus.transform;
         enemyAnimations.SetIdle();
+        originalScale = transform.localScale;        
     }
 
     // Update is called once per frame
@@ -113,13 +115,18 @@ public class Enemy : MonoBehaviour
         bool damaged = false;
         Collider[] hitEnemies = new Collider[1];
 
-        Vector3 originalScale = transform.localScale;        
         LeanTween.scale(gameObject, Vector3.one * 1.5f, 0.5f).setEasePunch().setOnComplete(() => animating = false);
-        await UniTask.WaitUntil(() => !animating);
+        await UniTask.WaitUntil(() => !animating || State == EnemyState.Hurt);
+        transform.localScale = originalScale;
+        if (State == EnemyState.Hurt){
+            return;
+        }
         float elapsed = 0f;
         float duration = .3f;
+
         while (elapsed < duration)
         {
+            enemyAnimations.SetAttackDash();
             if (this == null) break;
             if (State == EnemyState.Hurt){
                 transform.localScale = originalScale;
@@ -140,10 +147,9 @@ public class Enemy : MonoBehaviour
             await UniTask.Yield();
         }
         if (this == null) return;
-        transform.localScale = originalScale;
+        enemyAnimations.SetIdle();
         await UniTask.WaitForSeconds(0.5f);
         State = EnemyState.Idle;
-        enemyAnimations.SetIdle();
     }
 
     void OnDrawGizmos()
@@ -165,48 +171,14 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            PlayHurtAnimation();
+            enemyAnimations.PlayHurtAnimation();
         }
         await UniTask.WaitForSeconds(PlayerAttack.attackCooldown);
         State = EnemyState.Idle;
         enemyAnimations.SetIdle();
     }
 
-    private void PlayHurtAnimation()
-    {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        Vector3 originalScale = transform.localScale;
-        Color originalColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
-        
-        LeanTween.cancel(gameObject);
-        
-        // Scale down slightly
-        LeanTween.scale(gameObject, originalScale * 0.9f, 0.15f).setOnComplete(() =>
-        {
-            // Scale back to original
-            LeanTween.scale(gameObject, originalScale, 0.15f);
-        });
-        
-        // Turn red then back to original color
-        if (spriteRenderer != null)
-        {
-            LeanTween.value(gameObject, originalColor, Color.red, 0.15f)
-                .setOnUpdate((Color color) =>
-                {
-                    if (spriteRenderer != null)
-                        spriteRenderer.color = color;
-                })
-                .setOnComplete(() =>
-                {
-                    LeanTween.value(gameObject, Color.red, originalColor, 0.15f)
-                        .setOnUpdate((Color color) =>
-                        {
-                            if (spriteRenderer != null)
-                                spriteRenderer.color = color;
-                        });
-                });
-        }
-    }
+
 }
 public enum EnemyState
 {

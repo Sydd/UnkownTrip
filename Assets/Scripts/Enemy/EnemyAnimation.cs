@@ -11,6 +11,8 @@ public class EnemyAnimation : MonoBehaviour
  [SerializeField] private List<Sprite> attackSprites;
  [SerializeField] private List<Sprite> idleSprites;
  [SerializeField] private List<Sprite> currentAnimation;
+ [SerializeField] private List<Sprite> attackDashAnimation;
+
     int count = 0;
     private bool facingRight = true;
     
@@ -22,7 +24,7 @@ public class EnemyAnimation : MonoBehaviour
     private async UniTask RunWalkAnimation(){
         while (true){
             if (this == null) return;
-            if (currentAnimation[count] == null) 
+            if (count >= currentAnimation.Count) 
             {
                 await UniTask.Delay(100);
                 continue;
@@ -46,6 +48,47 @@ public class EnemyAnimation : MonoBehaviour
         if (currentAnimation == attackSprites) return;
         count = 0;  
         currentAnimation = attackSprites;
+    }
+
+    public void SetAttackDash (){
+        if (currentAnimation == attackDashAnimation) return;
+        count = 0;
+        currentAnimation = attackDashAnimation;
+    }
+    public void PlayHurtAnimation()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        Vector3 originalScale = transform.localScale;
+        Color originalColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
+        
+        LeanTween.cancel(gameObject);
+        
+        // Scale down slightly
+        LeanTween.scale(gameObject, originalScale * 0.9f, 0.15f).setOnComplete(() =>
+        {
+            // Scale back to original
+            LeanTween.scale(gameObject, originalScale, 0.15f);
+        });
+        
+        // Turn red then back to original color
+        if (spriteRenderer != null)
+        {
+            LeanTween.value(gameObject, originalColor, Color.red, 0.15f)
+                .setOnUpdate((Color color) =>
+                {
+                    if (spriteRenderer != null)
+                        spriteRenderer.color = color;
+                })
+                .setOnComplete(() =>
+                {
+                    LeanTween.value(gameObject, Color.red, originalColor, 0.15f)
+                        .setOnUpdate((Color color) =>
+                        {
+                            if (spriteRenderer != null)
+                                spriteRenderer.color = color;
+                        });
+                });
+        }
     }
     
     public void Flip(bool shouldFaceRight)
