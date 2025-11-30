@@ -1522,11 +1522,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6310133092398801324, guid: 86138a90bdb952041887ef6688e5119d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.67
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6310133092398801324, guid: 86138a90bdb952041887ef6688e5119d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 23.84
+      value: 25.630001
       objectReference: {fileID: 0}
     - target: {fileID: 6639244358920147882, guid: 86138a90bdb952041887ef6688e5119d, type: 3}
       propertyPath: enemiesInLevel.Array.size

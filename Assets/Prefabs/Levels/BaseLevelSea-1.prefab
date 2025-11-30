@@ -527,8 +527,8 @@ MonoBehaviour:
   - {fileID: 8084864632156221992}
   - {fileID: 689298476959226654}
   - {fileID: 7438796621234612713}
-  portalPosition: {fileID: 184029096725638260}
-  playerSpawnPoint: {fileID: 4851810066260450215}
+  portalPosition: {fileID: 4851810066260450215}
+  playerSpawnPoint: {fileID: 184029096725638260}
   levelMusic: {fileID: 0}
   levelName: 
 --- !u!4 &7712451858391731577 stripped

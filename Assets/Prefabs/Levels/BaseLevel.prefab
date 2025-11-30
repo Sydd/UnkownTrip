@@ -58,8 +58,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesInLevel: []
-  portalPosition: {fileID: 7276240204105171401}
-  playerSpawnPoint: {fileID: 2675911253673539098}
+  portalPosition: {fileID: 2675911253673539098}
+  playerSpawnPoint: {fileID: 7276240204105171401}
   levelMusic: {fileID: 0}
   levelName: 
 --- !u!1 &422166445383596073
@@ -433,7 +433,7 @@ Transform:
   m_GameObject: {fileID: 2366922903829768302}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: -23.62, z: 25.3}
+  m_LocalPosition: {x: -2.5, y: -23.62, z: 25.630001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -449,6 +449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4753291110833841284}
   - component: {fileID: 863834141974535033}
+  - component: {fileID: 2258659589874480164}
   m_Layer: 0
   m_Name: Overlay
   m_TagString: Untagged
@@ -523,6 +524,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2258659589874480164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2998742090537152362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f15f1bbe7836204f90b873f5a2698f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRenderer: {fileID: 863834141974535033}
+  scrollSpeed: {x: 0.1, y: 0.11}
+  textureProperty: _MainTex
 --- !u!1 &3521236439655779166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,7 +1086,7 @@ Transform:
   m_GameObject: {fileID: 7669355559506727428}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: -23.62, z: 16.3}
+  m_LocalPosition: {x: -2.5, y: -23.62, z: 14.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
