@@ -325,20 +325,24 @@ MonoBehaviour:
   hurtFadeDuration: 0.3
   spriteRenderer: {fileID: 8851491720748448195}
   idle:
-  - {fileID: 21300000, guid: 5782458d5fc3fdd45b525cbb89a47215, type: 3}
-  - {fileID: 21300000, guid: 29e25470607ee3143ae2f1f7b07c36f0, type: 3}
+  - {fileID: 21300000, guid: db03eba5da4cade49a93f329d09b3442, type: 3}
+  - {fileID: 21300000, guid: 4c76cf918a299c148a6ee49818bc7c1d, type: 3}
+  - {fileID: 21300000, guid: 8fd994e236af1174484ceb0f1d825d43, type: 3}
+  - {fileID: 21300000, guid: db7925e7fa042704f8408e7802134282, type: 3}
   moving:
   - {fileID: 21300000, guid: 781cc660290d21c4b9222001f7e02902, type: 3}
   - {fileID: 21300000, guid: 9f822d9581edc7b4cbce7e741e3fdbe3, type: 3}
   - {fileID: 21300000, guid: 2837b6eb11555964eb018063c3ca3045, type: 3}
   - {fileID: 21300000, guid: 2bb7e3089e4b493429787184da55353b, type: 3}
   attacking:
-  - {fileID: 21300000, guid: b1273bb2872c3a745b86309a8f7e6e25, type: 3}
-  - {fileID: 21300000, guid: 7fd1b04932e8c804bb5f87fe1c7554c5, type: 3}
+  - {fileID: 21300000, guid: 016031a5ca0aef6479453f3ba174c85b, type: 3}
+  - {fileID: 21300000, guid: 8aeec93af493e794180ea0925a275fba, type: 3}
+  - {fileID: 21300000, guid: 6b858746476013744975c22272360fb9, type: 3}
+  - {fileID: 21300000, guid: a733b988d27025948b1ebb7125bb7457, type: 3}
   dash:
-  - {fileID: 21300000, guid: 508d9951ee14163459b8dc92e1e94231, type: 3}
-  - {fileID: 21300000, guid: 602936c799c4b124d847e286b239baf4, type: 3}
-  - {fileID: 21300000, guid: 071732645e556a04fbd761a8bfda823a, type: 3}
+  - {fileID: 21300000, guid: cdfc6f4073090664694269cf095b06f4, type: 3}
+  - {fileID: 21300000, guid: d24fdf8a02e78e74ba9a753bd5116d04, type: 3}
+  - {fileID: 21300000, guid: c1610ae4929769c49b85ef9786e0ce48, type: 3}
   timeStep: 100
 --- !u!1 &8087352584277316775
 GameObject:
