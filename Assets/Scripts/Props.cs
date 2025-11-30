@@ -21,9 +21,10 @@ public class Props : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "player" || other.tag == "enemy") 
+        if (!_isSolid && (other.gameObject.tag == "Player" || other.gameObject.tag == "enemy")) 
         {
             PlayWobble();
+            Debug.Log("asd");
         }
     }
 
