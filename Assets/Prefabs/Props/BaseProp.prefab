@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6292022157954936507}
   - component: {fileID: 6556446229963338579}
   - component: {fileID: 5040748935343273678}
+  - component: {fileID: 5586538200644921652}
   m_Layer: 0
   m_Name: BaseProp
   m_TagString: Untagged
@@ -124,3 +125,15 @@ MonoBehaviour:
   wobbleDuration: 0.3
   wobbleVibrato: 10
   wobbleElasticity: 1
+--- !u!114 &5586538200644921652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5426898337129005970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58dfdae0088234d15b4f9d04cf822827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
