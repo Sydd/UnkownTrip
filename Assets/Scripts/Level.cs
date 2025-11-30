@@ -9,6 +9,7 @@ public class Level : MonoBehaviour
     public Action<Level>   OnLevelCleared;
     public Transform portalPosition;
     public Transform playerSpawnPoint;
+    public AudioClip levelMusic;
     public string levelName;
     private void Start()
     {
@@ -16,6 +17,11 @@ public class Level : MonoBehaviour
         {
             enemy.OnDie += () => HandleEnemyDeath(enemy);
         }
+    }
+
+    public void LoadLevel()
+    {
+        
     }
 
     private void HandleEnemyDeath(Enemy enemy)

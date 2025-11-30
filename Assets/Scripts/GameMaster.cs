@@ -59,6 +59,7 @@ public class GameMaster : MonoBehaviour
         {
             entryBase.gameObject.SetActive(false);
             Level nextLevel = GetRandomLevel();
+            nextLevel.LoadLevel();
             nextLevel.gameObject.SetActive(true);   
             playerStatus.transform.position = nextLevel.playerSpawnPoint.position;
             onLevel = true;
