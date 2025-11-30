@@ -16,7 +16,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private int life = 50;
- public EnemyState State = EnemyState.Idle;
+    public EnemyState State = EnemyState.Idle;
+
+    public Action OnDie;
+
     private PlayerStatus playerStatus;
     private Transform player;
     // Start is called before the first frame update
@@ -78,7 +81,7 @@ public class Enemy : MonoBehaviour
     private async UniTask AttackPlayerAsync()
     {   
         float attackDistance = stopDistance * 1.2f;
-         Vector3 directionToPlayer = (player.position - transform.position).normalized * attackDistance;
+        Vector3 directionToPlayer = (player.position - transform.position).normalized * attackDistance;
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = startPosition + directionToPlayer;
         if (Physics.Raycast(startPosition, directionToPlayer, viewDistance, wallLayer))
@@ -137,7 +140,7 @@ public class Enemy : MonoBehaviour
         life -= attackDamage;
         if (life <= 0)
         {
-            Destroy(gameObject);
+            OnDie?.Invoke();
         }
         else
         {
