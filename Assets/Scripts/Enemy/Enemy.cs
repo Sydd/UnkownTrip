@@ -35,30 +35,29 @@ public class Enemy : MonoBehaviour
     async void Update()
     {
         if (State == EnemyState.Idle && player != null)
-        {
+        {   
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
             if (distanceToPlayer > stopDistance)
             {
                 await MoveTowardPlayerAsync(); 
             }
-            if (distanceToPlayer <= stopDistance )
+            else if (distanceToPlayer <= stopDistance )
             {
                 await AttackPlayerAsync();
+            } 
+            else {
+                enemyAnimations.SetIdle(); 
             }
         }
     }
     private async UniTask MoveTowardPlayerAsync()
     {
-        enemyAnimations.SetWalk();
-        State = EnemyState.Moving;
         
         Vector3 startPosition = transform.position;
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         Vector3 targetPosition = startPosition + directionToPlayer * stepDistance;
         
-        // Flip to face player
-        bool shouldFaceRight = directionToPlayer.x > 0;
-        enemyAnimations.Flip(shouldFaceRight);
+ 
         
         // Check for walls before moving
         if (Physics.Raycast(startPosition, directionToPlayer, viewDistance, wallLayer))
@@ -67,6 +66,11 @@ public class Enemy : MonoBehaviour
             enemyAnimations.SetIdle();
             return;
         }
+       // Flip to face player
+        bool shouldFaceRight = directionToPlayer.x > 0;
+        enemyAnimations.Flip(shouldFaceRight);
+        enemyAnimations.SetWalk();
+        State = EnemyState.Moving;
         
         float distance = Vector3.Distance(startPosition, targetPosition);
         float duration = distance / moveSpeed;

@@ -12,7 +12,10 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private Sprite[] moving;
     [SerializeField] private Sprite[] attacking;
     [SerializeField] private Sprite[] dash;
-    private Sprite[] currentAnimation;        int count = 0;
+    [SerializeField] private int timeStep = 100;
+    private Sprite[] currentAnimation;        
+    int count = 0;
+    bool runOnce;
     internal void PlayHurtAnimation()
     {
         if (spriteRenderer != null)
@@ -55,9 +58,14 @@ public class PlayerAnimations : MonoBehaviour
 
     async UniTask RunAnimations(){
         while (PlayerStatus.Instance.currentState != PlayerState.Dead){
+            if (runOnce && count == currentAnimation.Length)
+            {
+                await UniTask.Delay(250);
+                continue;
+            }
             spriteRenderer.sprite = currentAnimation[count];
             count = (count + 1) % currentAnimation.Length;
-            await UniTask.Delay(250);
+            await UniTask.Delay(timeStep);
         }
     }
 
@@ -68,6 +76,7 @@ public class PlayerAnimations : MonoBehaviour
         if (currentState == newstate) return;
         currentState = newstate;
         count = 0;
+        runOnce = false;
         switch (currentState)
         {
             case PlayerState.Idle:
@@ -78,6 +87,7 @@ public class PlayerAnimations : MonoBehaviour
                 currentAnimation = moving;
                 break;
             case PlayerState.Attacking:
+                runOnce = true;
                 currentAnimation = attacking;
                 break;
             case PlayerState.Dash:

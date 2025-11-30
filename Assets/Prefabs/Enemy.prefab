@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85707820f18c64d43b507ddf69953ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 7785553299623692384}
   walkSprites:
   - {fileID: 21300000, guid: a0ecc7117ca5e044da97d188f88e21be, type: 3}
   - {fileID: 21300000, guid: 6c14153bfa133c045b01eac049fea30f, type: 3}

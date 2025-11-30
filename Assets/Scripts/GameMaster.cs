@@ -15,9 +15,9 @@ public class GameMaster : MonoBehaviour
     [SerializeField] private bool onLevel = false;
     [SerializeField] private EntryBase entryBase;
     [SerializeField] private PlayerStatus playerStatus;
+    private Level currentLevel;
     private void Awake()
     {
-        fadeTool = FadeTool.Instance;
         portal.OnPlayerEnter += async () => await HandlePlayerEnterPortal();
         foreach (var level in levels)
         {
@@ -45,11 +45,18 @@ public class GameMaster : MonoBehaviour
     private async UniTask HandlePlayerEnterPortal()
     {
         portal.isActive = false;
-        fadeTool.FadeIn();
-        await UniTask.Delay(1000);
+        fadeTool.FadeOut();
+        await UniTask.Delay(2000);
+        if (currentLevel != null)
+        {
+            currentLevel.gameObject.SetActive(false);
+        }
+        portal.gameObject.SetActive(false);
         if (onLevel)
         {
             entryBase.gameObject.SetActive(true);
+            portal.gameObject.SetActive(true);
+            portal.isActive =true;
             portal.transform.position = entryBase.portalSpawnPoint.position;
             playerStatus.transform.position = entryBase.playerSpawnPoint.position;
             fadeTool.FadeOut();
@@ -58,14 +65,14 @@ public class GameMaster : MonoBehaviour
         else
         {
             entryBase.gameObject.SetActive(false);
-            Level nextLevel = GetRandomLevel();
-            nextLevel.LoadLevel();
-            nextLevel.gameObject.SetActive(true);   
-            playerStatus.transform.position = nextLevel.playerSpawnPoint.position;
+            currentLevel = GetRandomLevel();
+            currentLevel.LoadLevel();
+            currentLevel.gameObject.SetActive(true);   
+            playerStatus.transform.position = currentLevel.playerSpawnPoint.position;
             onLevel = true;
         }
 
-        fadeTool.FadeOut();
+        fadeTool.FadeIn();
     }
 
     private Level GetRandomLevel(){

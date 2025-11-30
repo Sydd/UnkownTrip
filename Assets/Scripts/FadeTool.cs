@@ -56,7 +56,7 @@ public class FadeTool : MonoBehaviour
             float distance = mainCamera.nearClipPlane + 0.1f;
             float height = 2f * Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) * distance;
             float width = height * mainCamera.aspect;
-            fadeRenderer.transform.localScale = new Vector3(width, height, 1f);
+            //fadeRenderer.transform.localScale = new Vector3(width, height, 1f);
         }
     }
 
