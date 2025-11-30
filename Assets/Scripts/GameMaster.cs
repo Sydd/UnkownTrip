@@ -46,6 +46,7 @@ public class GameMaster : MonoBehaviour
         await UniTask.Delay(1000);
         portal.transform.position = level.portalPosition.position;
         portal.gameObject.SetActive(true);
+        portal.isActive = true;
         if (level.levelName == "Sea")
         {
             seaCounter--;
