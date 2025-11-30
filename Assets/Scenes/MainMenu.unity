@@ -1287,8 +1287,8 @@ Camera:
   m_GameObject: {fileID: 1738434636}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1655,7 +1655,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -230}
-  m_SizeDelta: {x: 750, y: 460}
+  m_SizeDelta: {x: 1098, y: 352}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &308812832299072000
 CanvasRenderer:
@@ -1972,14 +1972,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46540874, g: 0.46540874, b: 0.46540874, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 44f56902b058b7245a596716c3b8998d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3802,6 +3802,7 @@ GameObject:
   - component: {fileID: 225505831629112095}
   - component: {fileID: 3587634737712536181}
   - component: {fileID: 8585368397961205561}
+  - component: {fileID: 8585368397961205562}
   m_Layer: 5
   m_Name: GameTitle
   m_TagString: Untagged
@@ -3900,7 +3901,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7b4a4ee8e8892ab46a321cdaa037cfd0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3910,6 +3911,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8585368397961205562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282079541959744674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 824a7283e2ae7774c9146cebef943c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wobbleScale: 1.1
+  wobbleDuration: 0.3
+  wobbleEase: 24
 --- !u!224 &8738153223735594854
 RectTransform:
   m_ObjectHideFlags: 0
