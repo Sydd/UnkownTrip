@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private int life = 50;
+    [SerializeField] private EnemyAnimation enemyAnimations;
     public EnemyState State = EnemyState.Idle;
 
     public Action OnDie;
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour
     {
         playerStatus = PlayerStatus.Instance;
         player = playerStatus.transform;
+        enemyAnimations.SetIdle();
     }
 
     // Update is called once per frame
@@ -47,16 +49,22 @@ public class Enemy : MonoBehaviour
     }
     private async UniTask MoveTowardPlayerAsync()
     {
+        enemyAnimations.SetWalk();
         State = EnemyState.Moving;
         
         Vector3 startPosition = transform.position;
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         Vector3 targetPosition = startPosition + directionToPlayer * stepDistance;
         
+        // Flip to face player
+        bool shouldFaceRight = directionToPlayer.x > 0;
+        enemyAnimations.Flip(shouldFaceRight);
+        
         // Check for walls before moving
         if (Physics.Raycast(startPosition, directionToPlayer, viewDistance, wallLayer))
         {
             State = EnemyState.Idle;
+            enemyAnimations.SetIdle();
             return;
         }
         
@@ -87,9 +95,16 @@ public class Enemy : MonoBehaviour
         if (Physics.Raycast(startPosition, directionToPlayer, viewDistance, wallLayer))
         {
             State = EnemyState.Idle;
+            enemyAnimations.SetIdle();
             return;
         }
         State = EnemyState.Attacking;
+        enemyAnimations.SetAttack();
+        
+        // Flip to face player
+        bool shouldFaceRight = directionToPlayer.x > 0;
+        enemyAnimations.Flip(shouldFaceRight);
+        
         bool animating = true;
         bool damaged = false;
         Collider[] hitEnemies = new Collider[1];
@@ -124,6 +139,7 @@ public class Enemy : MonoBehaviour
         transform.localScale = originalScale;
         await UniTask.WaitForSeconds(0.5f);
         State = EnemyState.Idle;
+        enemyAnimations.SetIdle();
     }
 
     void OnDrawGizmos()
@@ -137,6 +153,7 @@ public class Enemy : MonoBehaviour
     internal async UniTask TakeDamage(int attackDamage)
     {
         State = EnemyState.Hurt;
+        enemyAnimations.SetIdle();
         life -= attackDamage;
         if (life <= 0)
         {
@@ -148,6 +165,7 @@ public class Enemy : MonoBehaviour
         }
         await UniTask.WaitForSeconds(PlayerAttack.attackCooldown);
         State = EnemyState.Idle;
+        enemyAnimations.SetIdle();
     }
 
     private void PlayHurtAnimation()
