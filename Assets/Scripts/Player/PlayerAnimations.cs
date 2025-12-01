@@ -13,6 +13,7 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private Sprite[] attacking;
     [SerializeField] private Sprite[] dash;
     [SerializeField] private int timeStep = 100;
+    int originalTimeStep;
     private Sprite[] currentAnimation;        
     int count = 0;
     bool runOnce;
@@ -34,6 +35,7 @@ public class PlayerAnimations : MonoBehaviour
     private void Start()
     {
         currentAnimation=idle;
+        originalTimeStep = timeStep;
         RunAnimations().Forget();
     }
 
@@ -60,7 +62,8 @@ public class PlayerAnimations : MonoBehaviour
         while (PlayerStatus.Instance.currentState != PlayerState.Dead){
             if (runOnce && count == currentAnimation.Length)
             {
-                await UniTask.Delay(250);
+                timeStep = originalTimeStep;
+                await UniTask.Delay(timeStep);
                 continue;
             }
             spriteRenderer.sprite = currentAnimation[count];
@@ -88,6 +91,7 @@ public class PlayerAnimations : MonoBehaviour
                 break;
             case PlayerState.Attacking:
                 runOnce = true;
+                timeStep = (int)(PlayerAttack.attackCooldown * 1000 / attacking.Length);
                 currentAnimation = attacking;
                 break;
             case PlayerState.Dash:

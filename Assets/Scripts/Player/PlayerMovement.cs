@@ -1,3 +1,4 @@
+using System;
 using System.Data.Common;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         if (move.magnitude >= 0.1f)
         {
             Vector3 speed = IsDashing() ? move * dashSpeed : move * moveSpeed;
+            speed = IsAttacking() ? speed * 0.2f : speed;
             controller.Move(speed * Time.deltaTime);
 
             // Update facing direction based on horizontal input
@@ -43,11 +45,11 @@ public class PlayerMovement : MonoBehaviour
                 Flip();
             }
 
-            if (!IsDashing()) PlayerStatus.Instance.currentState = PlayerState.Moving;
+            if (!IsDashing() && !IsAttacking()) PlayerStatus.Instance.currentState = PlayerState.Moving;
         }
         else
         {
-            if (!IsDashing()) PlayerStatus.Instance.currentState = PlayerState.Idle;
+            if (!IsDashing() && !IsAttacking()) PlayerStatus.Instance.currentState = PlayerState.Idle;
         }
 
         // Gravedad
@@ -60,9 +62,15 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    private bool IsAttacking()
+    {
+        return PlayerStatus.Instance.currentState == PlayerState.Attacking;
+    }
+
     private bool CanMove()
     {
         return PlayerStatus.Instance.currentState == PlayerState.Idle || 
+              PlayerStatus.Instance.currentState == PlayerState.Attacking ||
                PlayerStatus.Instance.currentState == PlayerState.Moving || IsDashing();
     }
 

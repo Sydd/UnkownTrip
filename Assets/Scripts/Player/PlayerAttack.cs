@@ -7,7 +7,7 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] public static float attackCooldown = 0.2f;
+    [SerializeField] public static float attackCooldown = 0.4f;
     [SerializeField] private float dashDuration = .5f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private float attackOffset = 1f;
@@ -57,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
     async UniTask AttackAsync()
     {
         PlayerStatus.Instance.currentState = PlayerState.Attacking;
-
+        await UniTask.Delay(System.TimeSpan.FromSeconds(attackCooldown) / 2);
         // Calculate attack position with offset based on facing direction
         Vector3 attackPosition = attackPoint.position;
         if (playerMovement != null)
@@ -84,7 +84,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // Wait for cooldown
-        await UniTask.Delay(System.TimeSpan.FromSeconds(attackCooldown));
+        await UniTask.Delay(System.TimeSpan.FromSeconds(attackCooldown) / 2);
         AudioManager.Instance.PlaySFX(AudioManager.Instance.SwordSlash);
         PlayerStatus.Instance.currentState = PlayerState.Idle;
     }
@@ -107,6 +107,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     public bool CanAttack(){
-       return  PlayerStatus.Instance.currentState == PlayerState.Idle || PlayerStatus.Instance.currentState == PlayerState.Moving;
+       return  PlayerStatus.Instance.currentState == PlayerState.Idle || 
+       PlayerStatus.Instance.currentState == PlayerState.Moving ;
     }
 }

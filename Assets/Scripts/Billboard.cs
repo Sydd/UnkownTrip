@@ -14,26 +14,27 @@ public class Billboard : MonoBehaviour
 
     void LateUpdate()
     {
-        if (mainCamera != null)
-        {
-            Vector3 directionToCamera = mainCamera.transform.position - transform.position;
-            directionToCamera.y = 0; // Keep it flat on the Y axis, no X rotation
+        // if (mainCamera != null)
+        // {
+        //     Vector3 directionToCamera = mainCamera.transform.position - transform.position;
+        //     directionToCamera.y = 0; // Keep it flat on the Y axis, no X rotation
             
-            if (directionToCamera != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(-directionToCamera);
-                Vector3 euler = targetRotation.eulerAngles;
+        //     if (directionToCamera != Vector3.zero)
+        //     {
+        //         Quaternion targetRotation = Quaternion.LookRotation(-directionToCamera);
+        //         Vector3 euler = targetRotation.eulerAngles;
                 
-                // Clamp the Y rotation
-                float yAngle = euler.y;
-                if (yAngle > 180f) yAngle -= 360f; // Convert to -180 to 180 range
-                yAngle = Mathf.Clamp(yAngle, -maxYRotation, maxYRotation);
+        //         // Clamp the Y rotation
+        //         float yAngle = euler.y;
+        //         if (yAngle > 180f) yAngle -= 360f; // Convert to -180 to 180 range
+        //         yAngle = Mathf.Clamp(yAngle, -maxYRotation, maxYRotation);
                 
-                euler.y = yAngle;
-                transform.rotation = Quaternion.Euler(euler);
-            }
-        }
+        //         euler.y = yAngle;
+        //         transform.rotation = Quaternion.Euler(euler);
+        //     }
+        // }
         // Sorting based on world Z position
+        transform.forward = mainCamera.transform.forward;
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
