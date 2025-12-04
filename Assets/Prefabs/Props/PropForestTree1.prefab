@@ -176,6 +176,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2568846078618893642, guid: e427ddbb1528452459feeac5821e5e73, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3606052577913441675, guid: e427ddbb1528452459feeac5821e5e73, type: 3}
       propertyPath: m_Name
       value: PropForestTree1
