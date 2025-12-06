@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5426898337129005970, guid: e9742c80a76444f4d97c4175073376b7, type: 3}
       propertyPath: m_Name
-      value: PropSea
+      value: PropSeaRock2
       objectReference: {fileID: 0}
     - target: {fileID: 6292022157954936507, guid: e9742c80a76444f4d97c4175073376b7, type: 3}
       propertyPath: m_Sprite
@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6556446229963338579, guid: e9742c80a76444f4d97c4175073376b7, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
