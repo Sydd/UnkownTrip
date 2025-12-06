@@ -5,9 +5,11 @@ using UnityEngine;
 public class ParticleHandler : MonoBehaviour
 {
     PlayerAttack playerAttack;
+    PlayerStatus playerStatus;
     private void Start()
     {
         playerAttack = GameObject.FindObjectOfType<PlayerAttack>();
+         if (playerStatus == null) playerStatus = GameObject.FindObjectOfType<PlayerStatus>();
         if (playerAttack != null)
         {
             playerAttack.enemyHurt += (Vector3 pos) => 
@@ -16,5 +18,12 @@ public class ParticleHandler : MonoBehaviour
                 ParticlesPool.Instance.Spawn(spawn, pos, Quaternion.identity,0.5f);
             };
         }   
+        if (playerStatus != null)
+        {
+            playerStatus.OnDamaged += () => 
+            {
+                ParticlesPool.Instance.Spawn("PlayerHurtEffect", playerStatus.transform.position, Quaternion.identity,0.5f);
+            };
+        }
     }
 }
