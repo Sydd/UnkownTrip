@@ -38,7 +38,7 @@ void Start()
 	{  
         for (int i = 0; i < heartImages.Length; i++)
         {
-            if (currentHealth -1 <= i)
+            if (currentHealth -1 >= i)
              heartImages[i].sprite = heartFull;
             else 
              heartImages[i].sprite = heartEmpty;

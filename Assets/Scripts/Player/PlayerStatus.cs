@@ -29,7 +29,7 @@ public class PlayerStatus: MonoBehaviour
         if (life <= 0)
         {
             currentState = PlayerState.Dead;
-            OnDeath?.Invoke();
+           // OnDeath?.Invoke();
         }
         else
         {
