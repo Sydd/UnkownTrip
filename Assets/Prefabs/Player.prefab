@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimations: {fileID: 3886276780789612330}
-  life: 2
+  life: 3
   currentState: 0
 --- !u!114 &3886276780789612330
 MonoBehaviour:

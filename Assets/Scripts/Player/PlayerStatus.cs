@@ -24,8 +24,8 @@ public class PlayerStatus: MonoBehaviour
     }
     public void Hurt()
     {
-        OnDamaged?.Invoke();
         life -= 1;
+        OnDamaged?.Invoke();
         if (life <= 0)
         {
             currentState = PlayerState.Dead;
