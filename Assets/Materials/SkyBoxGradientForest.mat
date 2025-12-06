@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SkyBoxGradientBlack
+  m_Name: SkyBoxGradientForest
   m_Shader: {fileID: 4800000, guid: b9946ecd40cf0fb4caa3c70735da3e87, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
