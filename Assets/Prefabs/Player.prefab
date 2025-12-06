@@ -268,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf511e2d17a6b4de0a62e174b4614d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Shadow: {fileID: 8025902384323821893}
   moveSpeed: 10
   gravity: -9.81
   dashSpeed: 20
@@ -286,9 +287,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
+  attackCooldown: 0.4
   attackRange: 1.63
-  dashDuration: 0.5
-  dashCooldown: 1
+  dashDuration: 0.2
+  dashCooldown: 0.5
   attackOffset: 1.44
   enemyLayer:
     serializedVersion: 2
@@ -418,7 +420,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 5782458d5fc3fdd45b525cbb89a47215, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db7925e7fa042704f8408e7802134282, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

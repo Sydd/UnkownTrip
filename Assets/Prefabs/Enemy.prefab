@@ -68,7 +68,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f735895cfb9130c4c86662f46b18f80b, type: 3}
   - {fileID: 21300000, guid: 4f432d2c99dcbf4418aa755c8ab69f4f, type: 3}
   currentAnimation: []
-  attackDashAnimation: []
+  attackDashAnimation:
+  - {fileID: 21300000, guid: 4afe902887573d74089b4c9ce4827c7b, type: 3}
+  - {fileID: 21300000, guid: a97d7246feae8654e8df026e1c87da88, type: 3}
+  knockUpDistance: 3
+  myself: {fileID: 7867645971993990772}
+  sortingOffset: 0
+  precision: 100
 --- !u!212 &7785553299623692384
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -133,6 +139,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dfdae0088234d15b4f9d04cf822827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sortingOffset: 0
+  precision: 100
+  maxYRotation: 20
 --- !u!1 &1750963474026063089
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +215,7 @@ MonoBehaviour:
   stepDistance: 1
   stopDistance: 5
   viewDistance: 10
+  attackCooldown: 1
   wallLayer:
     serializedVersion: 2
     m_Bits: 64

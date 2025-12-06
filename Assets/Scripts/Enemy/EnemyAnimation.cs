@@ -13,7 +13,9 @@ public class EnemyAnimation : MonoBehaviour
  [SerializeField] private List<Sprite> idleSprites;
  [SerializeField] private List<Sprite> currentAnimation;
  [SerializeField] private List<Sprite> attackDashAnimation;
-    public int sortingOffset = 0;   // use this if you want manual fine tuning
+ [SerializeField] private float knockUpDistance = 1.0f;
+ [SerializeField] private Transform myself;
+     public int sortingOffset = 0;   // use this if you want manual fine tuning
     public float precision = 100f;  // how accurate the sorting is
 
     int count = 0;
@@ -58,21 +60,27 @@ public class EnemyAnimation : MonoBehaviour
         count = 0;
         currentAnimation = attackDashAnimation;
     }
-    public void PlayHurtAnimation()
+    public void PlayHurtAnimation(Vector3 dmgPosition)
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         Vector3 originalScale = transform.localScale;
         Color originalColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
-        
+
         LeanTween.cancel(gameObject);
-        
+
+        // Move away from damage position with a curve (ease out)
+        Vector3 direction = (myself.position - dmgPosition).normalized;
+        Vector3 startPos = myself.position;
+        Vector3 endPos = startPos + direction * knockUpDistance;
+        float knockbackDuration = 0.3f;
+        LeanTween.move(myself.gameObject, endPos, knockbackDuration).setEaseOutQuad();
         // Scale down slightly
         LeanTween.scale(gameObject, originalScale * 0.9f, 0.15f).setOnComplete(() =>
         {
             // Scale back to original
             LeanTween.scale(gameObject, originalScale, 0.15f);
         });
-        
+
         // Turn red then back to original color
         if (spriteRenderer != null)
         {

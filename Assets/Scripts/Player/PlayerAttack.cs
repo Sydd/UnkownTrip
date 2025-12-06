@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private int attackDamage = 10;
+    [SerializeField] public float attackCooldown = 0.4f;
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] public static float attackCooldown = 0.4f;
+    [SerializeField] public static float AttackCooldown = 0.4f;
     [SerializeField] private float dashDuration = .5f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private float attackOffset = 1f;
@@ -16,9 +17,10 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;  
     private bool isDashOnCooldown = false;
     public Action<Vector3> enemyHurt;
-    void Start()
+    void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        AttackCooldown = attackCooldown;
     }
 
     async void Update()
@@ -41,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
         // Wait for dash duration
         await UniTask.Delay(System.TimeSpan.FromSeconds(dashDuration));
         
-        PlayerStatus.Instance.currentState = PlayerState.Idle;
+        PlayerStatus.Instance.currentState = PlayerState.Moving;
         
         // Wait for cooldown
         await UniTask.Delay(System.TimeSpan.FromSeconds(dashCooldown));
@@ -51,13 +53,19 @@ public class PlayerAttack : MonoBehaviour
 
     private bool CanDash()
     {
-        return !isDashOnCooldown && (PlayerStatus.Instance.currentState == PlayerState.Idle || PlayerStatus.Instance.currentState == PlayerState.Moving);
+        return !isDashOnCooldown && (PlayerStatus.Instance.currentState == PlayerState.Idle 
+        || PlayerStatus.Instance.currentState == PlayerState.Moving || PlayerStatus.Instance.currentState == PlayerState.Attacking);
     }
     Collider[] colliders = new Collider[10];
     async UniTask AttackAsync()
     {
         PlayerStatus.Instance.currentState = PlayerState.Attacking;
-        await UniTask.Delay(System.TimeSpan.FromSeconds(attackCooldown) / 2);
+        
+        // Wait for half attack cooldown OR until dash is pressed
+        var delayTask = UniTask.Delay(System.TimeSpan.FromSeconds(AttackCooldown / 2));
+        await UniTask.WaitUntil(() => delayTask.Status == UniTaskStatus.Succeeded || PlayerStatus.Instance.currentState == PlayerState.Dash);
+        if(PlayerStatus.Instance.currentState == PlayerState.Dash ) return;
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.SwordSlash);
         // Calculate attack position with offset based on facing direction
         Vector3 attackPosition = attackPoint.position;
         if (playerMovement != null)
@@ -74,19 +82,22 @@ public class PlayerAttack : MonoBehaviour
            if (enemy != null)
            {
                Enemy enemyScript = enemy.GetComponent<Enemy>();
-               if (enemyScript != null && enemyScript.State != EnemyState.Hurt)
+               if (enemyScript != null)
                {
-                   enemyScript.TakeDamage(attackDamage).Forget();
+                   enemyScript.TakeDamage(attackDamage, transform.position).Forget();
                    enemyHurt?.Invoke(enemy.transform.position);
                    AudioManager.Instance.PlaySFX(AudioManager.Instance.PlayerHit);
                }
            }
         }
 
-        // Wait for cooldown
-        await UniTask.Delay(System.TimeSpan.FromSeconds(attackCooldown) / 2);
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.SwordSlash);
-        PlayerStatus.Instance.currentState = PlayerState.Idle;
+        // Wait for remaining cooldown OR until dash is pressed
+        var cooldownTask = UniTask.Delay(System.TimeSpan.FromSeconds(AttackCooldown / 2));
+        await UniTask.WaitUntil(() => cooldownTask.Status == UniTaskStatus.Succeeded || PlayerStatus.Instance.currentState == PlayerState.Dash);        
+        if (PlayerStatus.Instance.currentState != PlayerState.Dash)
+        {
+            PlayerStatus.Instance.currentState = PlayerState.Idle;
+        }
     }
 
     void OnDrawGizmosSelected()

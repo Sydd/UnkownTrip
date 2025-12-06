@@ -63,7 +63,7 @@ public class PlayerAnimations : MonoBehaviour
             if (runOnce && count == currentAnimation.Length)
             {
                 timeStep = originalTimeStep;
-                await UniTask.Delay(timeStep);
+                await UniTask.WaitUntil(() => !runOnce);
                 continue;
             }
             spriteRenderer.sprite = currentAnimation[count];
@@ -91,7 +91,7 @@ public class PlayerAnimations : MonoBehaviour
                 break;
             case PlayerState.Attacking:
                 runOnce = true;
-                timeStep = (int)(PlayerAttack.attackCooldown * 1000 / attacking.Length);
+               // timeStep = (int)(PlayerAttack.AttackCooldown * 1000 / attacking.Length);
                 currentAnimation = attacking;
                 break;
             case PlayerState.Dash:

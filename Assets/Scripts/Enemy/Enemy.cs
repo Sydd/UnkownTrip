@@ -12,11 +12,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float stepDistance = 1f;
     [SerializeField] private float stopDistance = 2f;
     [SerializeField] private float viewDistance = 10f;
+    [SerializeField] private float attackCooldown = 1f;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private int life = 50;
     [SerializeField] private EnemyAnimation enemyAnimations;
+    private bool isAttackOnCoolDown = false;
     public EnemyState State = EnemyState.Idle;
 
     public Action OnDie;
@@ -35,7 +37,6 @@ public class Enemy : MonoBehaviour
         originalScale = transform.localScale;        
     }
 
-    // Update is called once per frame
     async void Update()
     {
         if (State == EnemyState.Idle && !isAttacking && !isMoving && player != null)
@@ -45,7 +46,7 @@ public class Enemy : MonoBehaviour
             {
                 await MoveTowardPlayerAsync(); 
             }
-            else if (distanceToPlayer <= stopDistance )
+            else if (distanceToPlayer <= stopDistance && !isAttackOnCoolDown )
             {
                 await AttackPlayerAsync();
             } 
@@ -108,7 +109,7 @@ public class Enemy : MonoBehaviour
     {   
         if (isAttacking) return;
         isAttacking = true;
-        
+        Debug.Log("Attacking Player");
         float attackDistance = stopDistance * 1.2f;
         Vector3 directionToPlayer = (player.position - transform.position).normalized * attackDistance;
         Vector3 startPosition = transform.position;
@@ -177,6 +178,9 @@ public class Enemy : MonoBehaviour
         await UniTask.WaitForSeconds(0.5f);
         State = EnemyState.Idle;
         isAttacking = false;
+        isAttackOnCoolDown = true;
+        await UniTask.Delay((int)(attackCooldown * 1000));
+        isAttackOnCoolDown = false;
     }
 
     void OnDrawGizmos()
@@ -187,7 +191,7 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    internal async UniTask TakeDamage(int attackDamage)
+    internal async UniTask TakeDamage(int attackDamage, Vector3 position)
     {
         State = EnemyState.Hurt;
         enemyAnimations.SetIdle();
@@ -200,9 +204,10 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            enemyAnimations.PlayHurtAnimation();
+            enemyAnimations.PlayHurtAnimation(position);
         }
-        await UniTask.WaitForSeconds(PlayerAttack.attackCooldown);
+        await UniTask.WaitForSeconds(3);
+        Debug.Log("Enemy recovered from Hurt");
         State = EnemyState.Idle;
         enemyAnimations.SetIdle();
     }

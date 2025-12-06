@@ -7,9 +7,10 @@ public class PlayerStatus: MonoBehaviour
     public Action OnDamaged;
     public Action OnDeath;
     [SerializeField] private PlayerAnimations playerAnimations;
-    public int life = 100;
+    [SerializeField] private int life = 3;
     public static PlayerStatus Instance { get; private set; }
     public PlayerState currentState;
+    public int CurrentHealth => life;
     private void Awake()
     {
         if (Instance == null)
@@ -24,7 +25,7 @@ public class PlayerStatus: MonoBehaviour
     public void Hurt()
     {
         OnDamaged?.Invoke();
-        life -= 10;
+        life -= 1;
         if (life <= 0)
         {
             currentState = PlayerState.Dead;
