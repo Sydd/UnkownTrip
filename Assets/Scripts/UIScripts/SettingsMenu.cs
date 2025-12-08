@@ -15,7 +15,6 @@ public class SettingsMenu : MonoBehaviour
 
     private void Start()
     {
-        InitializeResolutions();
         LoadCurrentSettings();
 
         // Hook up listeners
@@ -24,25 +23,6 @@ public class SettingsMenu : MonoBehaviour
         _fullscreenToggle.onValueChanged.AddListener(OnFullscreenToggled);
     }
 
-    private void InitializeResolutions()
-    {
-        _resolutions = Screen.resolutions;
-
-        var options = new System.Collections.Generic.List<string>();
-        int currentResolutionIndex = 0;
-
-        for (int i = 0; i < _resolutions.Length; i++)
-        {
-            string option = _resolutions[i].width + " x " + _resolutions[i].height;
-            options.Add(option);
-
-            if (_resolutions[i].width == Screen.currentResolution.width &&
-                _resolutions[i].height == Screen.currentResolution.height)
-            {
-                currentResolutionIndex = i;
-            }
-        }
-    }
 
     private void LoadCurrentSettings()
     {

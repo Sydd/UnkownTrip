@@ -55,6 +55,7 @@ MonoBehaviour:
   SwordSlash: {fileID: 8300000, guid: 81d426e5e7072da4a80a2a4a1e7874d4, type: 3}
   PlayerHit: {fileID: 8300000, guid: 2229273743e94674485429955fbf626b, type: 3}
   PlayerDash: {fileID: 8300000, guid: 9afeb1abaadcb06458494365a72f515c, type: 3}
+  GameOver: {fileID: 8300000, guid: d5311d5cbada7b749bfd10f4d7ec1037, type: 3}
 --- !u!82 &2782305167674914665
 AudioSource:
   m_ObjectHideFlags: 0

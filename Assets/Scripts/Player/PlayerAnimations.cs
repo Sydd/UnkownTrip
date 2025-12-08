@@ -30,6 +30,7 @@ public class PlayerAnimations : MonoBehaviour
                     // Fade back to white
                     LeanTween.value(gameObject, UpdateColor, spriteRenderer.color, Color.white, hurtFadeDuration);
                 });
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.PlayerHit);
         }
     }
     private void Start()

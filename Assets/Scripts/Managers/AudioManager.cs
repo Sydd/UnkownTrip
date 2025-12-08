@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip SwordSlash;
     public AudioClip PlayerHit;
     public AudioClip PlayerDash;
+    public AudioClip GameOver;
 
 
     private void Awake()
