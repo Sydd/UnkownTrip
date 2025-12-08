@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,9 +33,10 @@ void Start()
 	private void OnPlayerDamaged()
 	{
 		RenderHearts(playerStatus.CurrentHealth);
-	}
+		heartImages[playerStatus.CurrentHealth].rectTransform.DOShakePosition(0.5f, 20f, 20, 90f);
+    }
 
-	private void RenderHearts(int currentHealth)
+    private void RenderHearts(int currentHealth)
 	{  
         for (int i = 0; i < heartImages.Length; i++)
         {

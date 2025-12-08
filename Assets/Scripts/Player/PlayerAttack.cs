@@ -39,15 +39,14 @@ public class PlayerAttack : MonoBehaviour
     {
         isDashOnCooldown = true;
         PlayerStatus.Instance.currentState = PlayerState.Dash;
-        
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.PlayerDash);
         // Wait for dash duration
         await UniTask.Delay(System.TimeSpan.FromSeconds(dashDuration));
         
         PlayerStatus.Instance.currentState = PlayerState.Moving;
-        
+
         // Wait for cooldown
         await UniTask.Delay(System.TimeSpan.FromSeconds(dashCooldown));
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.PlayerDash);
         isDashOnCooldown = false;
     }
 
