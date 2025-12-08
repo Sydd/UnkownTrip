@@ -3363,18 +3363,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 1971152639200764422, guid: 506888401a32f41b88c4f826d92a8de4, type: 3}
-      propertyPath: PlayerDash
-      value: 
-      objectReference: {fileID: 8300000, guid: 3b2a10e3b5aad184dac0afee119b4212, type: 3}
-    - target: {fileID: 2782305167674914665, guid: 506888401a32f41b88c4f826d92a8de4, type: 3}
-      propertyPath: m_Volume
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5471331004435147622, guid: 506888401a32f41b88c4f826d92a8de4, type: 3}
-      propertyPath: m_Volume
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 7124624045140812335, guid: 506888401a32f41b88c4f826d92a8de4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1383.6947
@@ -3992,9 +3980,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 70000819e5c70d1488524bce78c4c2df, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4266,7 +4254,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c5ece4870ca214afca8f725ad8073d72, type: 3}
+  m_Sprite: {fileID: 21300000, guid: adc930fbfafbfd245b329d146362330f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

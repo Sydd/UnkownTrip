@@ -18,6 +18,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip PlayerDash;
     public AudioClip GameOver;
 
+    [Header("UI Clips")]
+    public AudioClip UISelect;
+    public AudioClip UImove;
 
     private void Awake()
     {

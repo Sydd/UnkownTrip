@@ -32,8 +32,11 @@ void Start()
 	// Event handlers
 	private void OnPlayerDamaged()
 	{
-		RenderHearts(playerStatus.CurrentHealth);
-		heartImages[playerStatus.CurrentHealth].rectTransform.DOShakePosition(0.5f, 20f, 20, 90f);
+        RenderHearts(playerStatus.CurrentHealth);
+
+        int index = Mathf.Clamp(playerStatus.CurrentHealth, 0, heartImages.Length - 1);
+
+        heartImages[index].rectTransform.DOShakePosition(0.5f, 20f, 20, 90f);
     }
 
     private void RenderHearts(int currentHealth)
