@@ -57,8 +57,6 @@ public class SettingsManager : MonoBehaviour
 
         //QualitySettings.SetQualityLevel(QualityLevel);
         Screen.fullScreen = IsFullscreen;
-
-        ApplyResolution(ResolutionIndex);
     }
 
     public void SetMusicVolume(float value)
@@ -87,27 +85,6 @@ public class SettingsManager : MonoBehaviour
         IsFullscreen = isFullscreen;
         PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
         Screen.fullScreen = isFullscreen;
-    }
-
-    public void SetResolution(int width, int height)
-    {
-        ResolutionWidth = width;
-        ResolutionHeight = height;
-
-        PlayerPrefs.SetInt("ResolutionWidth", width);
-        PlayerPrefs.SetInt("ResolutionHeight", height);
-
-        Screen.SetResolution(width, height, IsFullscreen);
-    }
-
-    private void ApplyResolution(int index)
-    {
-        Resolution[] resolutions = Screen.resolutions;
-        if (index >= 0 && index < resolutions.Length)
-        {
-            Resolution res = resolutions[index];
-            Screen.SetResolution(res.width, res.height, IsFullscreen);
-        }
     }
 
     public void SaveSettings()
