@@ -69,6 +69,7 @@ public class GameMaster : MonoBehaviour
         playerStatus.GetComponent<CharacterController>().enabled = false;
         portal.isActive = false;
         fadeTool.FadeOut();
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.Warp);
         await UniTask.Delay(2000);
         if (currentLevel != null)
         {
@@ -98,7 +99,6 @@ public class GameMaster : MonoBehaviour
                 portal.isActive = false;
             }
         }
-
         fadeTool.FadeIn();
         await UniTask.Delay(500);
         playerStatus.GetComponent<CharacterController>().enabled = true;

@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip PlayerHit;
     public AudioClip PlayerDash;
     public AudioClip GameOver;
+    public AudioClip Warp;
 
     [Header("UI Clips")]
     public AudioClip UISelect;

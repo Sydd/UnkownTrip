@@ -77,7 +77,7 @@ public class MenuNavigator : MonoBehaviour
 
         if (index < 0) index = items.Length - 1;
         if (index >= items.Length) index = 0;
-
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.UImove);
         HighlightItem(index);
         nextInput = Time.time + inputCooldown;
     }
@@ -115,7 +115,7 @@ public class MenuNavigator : MonoBehaviour
         // Flash pressed color
         item.image.color = pressedColor;
         Invoke(nameof(RestoreHighlight), 0.1f);
-
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.UISelect);
         if (item.type == ItemType.Button)
             item.onPress.Invoke();
     }
