@@ -13,6 +13,9 @@ public class EnemyAnimation : MonoBehaviour
  [SerializeField] private List<Sprite> idleSprites;
  [SerializeField] private List<Sprite> currentAnimation;
  [SerializeField] private List<Sprite> attackDashAnimation;
+ [SerializeField] private List<Sprite> hurtAnimation;
+ [SerializeField] private List<Sprite> deadAnimation;
+
  [SerializeField] private float knockUpDistance = 1.0f;
  [SerializeField] private Transform myself;
      public int sortingOffset = 0;   // use this if you want manual fine tuning
@@ -24,9 +27,9 @@ public class EnemyAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RunWalkAnimation().Forget();
+        RunAnimation().Forget();
     }
-    private async UniTask RunWalkAnimation(){
+    private async UniTask RunAnimation(){
         while (true){
             if (this == null) return;
             if (count >= currentAnimation.Count) 
@@ -60,27 +63,17 @@ public class EnemyAnimation : MonoBehaviour
         count = 0;
         currentAnimation = attackDashAnimation;
     }
-    public void PlayHurtAnimation(Vector3 dmgPosition)
+    public async UniTask PlayHurtAnimation(Vector3 dmgPosition)
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         Vector3 originalScale = transform.localScale;
         Color originalColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
-
+        count = 0;
+        currentAnimation = hurtAnimation;
         LeanTween.cancel(gameObject);
 
         // Move away from damage position with a curve (ease out)
-        Vector3 direction = (myself.position - dmgPosition).normalized;
-        Vector3 startPos = myself.position;
-        Vector3 endPos = startPos + direction * knockUpDistance;
-        float knockbackDuration = 0.3f;
-        LeanTween.move(myself.gameObject, endPos, knockbackDuration).setEaseOutQuad();
-        // Scale down slightly
-        LeanTween.scale(gameObject, originalScale * 0.9f, 0.15f).setOnComplete(() =>
-        {
-            // Scale back to original
-            LeanTween.scale(gameObject, originalScale, 0.15f);
-        });
-
+        Knockback(dmgPosition);
         // Turn red then back to original color
         if (spriteRenderer != null)
         {
@@ -100,6 +93,9 @@ public class EnemyAnimation : MonoBehaviour
                         });
                 });
         }
+        await UniTask.Delay(hurtAnimation.Count * 110);
+        count = 0;
+        currentAnimation = idleSprites;
     }
     
     public void Flip(bool shouldFaceRight)
@@ -111,20 +107,27 @@ public class EnemyAnimation : MonoBehaviour
         }
     }
 
-        void LateUpdate()
+    void LateUpdate()
     {
         // Sorting based on world Z position
         spriteRenderer.sortingOrder = (int)(-transform.position.z * precision) + sortingOffset;
     }
 
-    internal void SetDie()
+    private void Knockback(Vector3 dmgPosition)
+    {
+        Vector3 direction = (myself.position - dmgPosition).normalized;
+        Vector3 startPos = myself.position;
+        Vector3 endPos = startPos + direction * knockUpDistance;
+        float knockbackDuration = 0.3f;
+        LeanTween.move(myself.gameObject, endPos, knockbackDuration).setEaseOutQuad();
+    }
+    internal async UniTask SetDie(Vector3 dmgPosition)
     {
         LeanTween.cancel(gameObject);
-        
-        Vector3 originalScale = transform.localScale;
-        Vector3 targetScale = originalScale * 1.5f;
-        
-        LeanTween.scale(gameObject, targetScale, 0.3f)
-            .setEaseOutBack();
+        Knockback(dmgPosition);
+        count = 0;
+        currentAnimation = deadAnimation;
+        await UniTask.Delay(deadAnimation.Count * 100);
+
     }
 }

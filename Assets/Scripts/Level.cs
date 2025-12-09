@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    public List<Enemy> enemiesInLevel = new List<Enemy>();
+    public List<EnemyMelee> enemiesInLevel = new List<EnemyMelee>();
     public Action<Level>   OnLevelCleared;
     public Transform portalPosition;
     public Transform playerSpawnPoint;
@@ -24,11 +24,10 @@ public class Level : MonoBehaviour
         
     }
 
-    private void HandleEnemyDeath(Enemy enemy)
+    private void HandleEnemyDeath(EnemyMelee enemy)
     {
         enemiesInLevel.Remove(enemy);
         enemy.OnDie = null;
-        GameObject.Destroy(enemy.gameObject);
         if (enemiesInLevel.Count == 0)
         {
             OnLevelCleared?.Invoke(this);

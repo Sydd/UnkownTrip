@@ -6,7 +6,7 @@ using System;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 
-public class Enemy : MonoBehaviour
+public class EnemyMelee : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float stepDistance = 1f;
@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
         
         while (elapsed < duration)
         {
-            if (State == EnemyState.Hurt)
+            if (!ShouldKeepRoutine())
             {
                 isMoving = false;
                 return;
@@ -135,7 +135,7 @@ public class Enemy : MonoBehaviour
         await UniTask.WaitUntil(() => !animating || State == EnemyState.Hurt);
         if (this == null) return;
         transform.localScale = originalScale;
-        if (State == EnemyState.Hurt){
+        if (!ShouldKeepRoutine()){
             isAttacking = false;
             return;
         }
@@ -157,7 +157,7 @@ public class Enemy : MonoBehaviour
             enemyAnimations.SetAttackDash();
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-                transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
             if (!damaged)
             {
                 Physics.OverlapSphereNonAlloc(transform.position, attackRange, hitEnemies, playerLayer);
@@ -199,20 +199,25 @@ public class Enemy : MonoBehaviour
         if (life <= 0)
         {
             State = EnemyState.Dying;
-            enemyAnimations.SetDie();
             OnDie?.Invoke();
+            await enemyAnimations.SetDie(position);
+            await UniTask.Delay(1000);
+            Destroy(gameObject);
+            return;
         }
         else
         {
-            enemyAnimations.PlayHurtAnimation(position);
+            await enemyAnimations.PlayHurtAnimation(position);
         }
-        await UniTask.WaitForSeconds(3);
+        await UniTask.WaitForSeconds(2);
         Debug.Log("Enemy recovered from Hurt");
         State = EnemyState.Idle;
         enemyAnimations.SetIdle();
     }
 
-
+    private bool ShouldKeepRoutine(){
+        return State != EnemyState.Hurt && State != EnemyState.Dying;
+    }
 }
 public enum EnemyState
 {

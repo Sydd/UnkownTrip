@@ -80,7 +80,7 @@ public class PlayerAttack : MonoBehaviour
             // Deal damage to enemy
            if (enemy != null)
            {
-               Enemy enemyScript = enemy.GetComponent<Enemy>();
+               EnemyMelee enemyScript = enemy.GetComponent<EnemyMelee>();
                if (enemyScript != null)
                {
                    enemyScript.TakeDamage(attackDamage, transform.position).Forget();
