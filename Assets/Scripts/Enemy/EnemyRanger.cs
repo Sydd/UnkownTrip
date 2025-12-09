@@ -23,6 +23,7 @@ public class EnemyRanger : MonoBehaviour
     // Update is called once per frame
 async void Update()
     {
+        if (State == EnemyState.Dying) return;
         if (State == EnemyState.Idle && !isAttacking  && player != null)
         {
             if (!isAttackOnCoolDown )
@@ -52,8 +53,13 @@ async void Update()
         }
         // Simulate attack duration
         await UniTask.Delay(500);
+        if (State == EnemyState.Dying)
+        {
+            isAttacking = false;
+            return;
+        }
         isAttackOnCoolDown = true;
-        State = EnemyState.Idle;
+        if (State != EnemyState.Dying) State = EnemyState.Idle;
         isAttacking = false;
         // Start cooldown
         await UniTask.Delay(2000);

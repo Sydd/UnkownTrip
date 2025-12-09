@@ -39,6 +39,7 @@ public class EnemyMelee : MonoBehaviour
 
     async void Update()
     {
+        if (State == EnemyState.Dying ) return;
         if (State == EnemyState.Idle && !isAttacking && !isMoving && player != null)
         {   
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -67,7 +68,7 @@ public class EnemyMelee : MonoBehaviour
         // Check for walls before moving
         if (Physics.Raycast(startPosition, directionToPlayer, viewDistance, wallLayer))
         {
-            State = EnemyState.Idle;
+            if (ShouldKeepRoutine()) State = EnemyState.Idle;
             enemyAnimations.SetIdle();
             isMoving = false;
             return;
@@ -101,7 +102,7 @@ public class EnemyMelee : MonoBehaviour
             return;
         }
         transform.position = targetPosition;
-        State = EnemyState.Idle;
+        if (ShouldKeepRoutine()) State = EnemyState.Idle;
         isMoving = false;
     }
 
@@ -116,7 +117,7 @@ public class EnemyMelee : MonoBehaviour
         Vector3 targetPosition = startPosition + directionToPlayer;
         if (Physics.Raycast(startPosition, directionToPlayer, viewDistance, wallLayer))
         {
-            State = EnemyState.Idle;
+            if (ShouldKeepRoutine()) State = EnemyState.Idle;
             enemyAnimations.SetIdle();
             isAttacking = false;
             return;
@@ -132,7 +133,7 @@ public class EnemyMelee : MonoBehaviour
         bool damaged = false;
         Collider[] hitEnemies = new Collider[1];
         LeanTween.scale(gameObject, Vector3.one * 1.5f, 0.5f).setEasePunch().setOnComplete(() => animating = false);
-        await UniTask.WaitUntil(() => !animating || State == EnemyState.Hurt);
+        await UniTask.WaitUntil(() => !animating || State == EnemyState.Hurt || State == EnemyState.Dying);
         if (this == null) return;
         transform.localScale = originalScale;
         if (!ShouldKeepRoutine()){
@@ -148,6 +149,11 @@ public class EnemyMelee : MonoBehaviour
             {
                 isAttacking = false;
                 break;
+            }
+            if (!ShouldKeepRoutine()){
+                transform.localScale = originalScale;
+                isAttacking = false;
+                return;
             }
             if (State == EnemyState.Hurt){
                 transform.localScale = originalScale;
@@ -176,7 +182,7 @@ public class EnemyMelee : MonoBehaviour
         }
         enemyAnimations.SetIdle();
         await UniTask.WaitForSeconds(0.5f);
-        State = EnemyState.Idle;
+        if (ShouldKeepRoutine()) State = EnemyState.Idle;
         isAttacking = false;
         isAttackOnCoolDown = true;
         await UniTask.Delay((int)(attackCooldown * 1000));
@@ -193,12 +199,20 @@ public class EnemyMelee : MonoBehaviour
 
     internal async UniTask TakeDamage(int attackDamage, Vector3 position)
     {
+        if (State == EnemyState.Dying) return;
         State = EnemyState.Hurt;
         enemyAnimations.SetIdle();
         life -= attackDamage;
         if (life <= 0)
         {
             State = EnemyState.Dying;
+            // Stop any ongoing tweens and actions
+            isAttacking = false;
+            isMoving = false;
+                if (gameObject != null)
+                {
+                    LeanTween.cancel(gameObject);
+                }
             OnDie?.Invoke();
             await enemyAnimations.SetDie(position);
             await UniTask.Delay(1000);
@@ -211,7 +225,7 @@ public class EnemyMelee : MonoBehaviour
             await enemyAnimations.PlayHurtAnimation(position);
         }
         await UniTask.WaitForSeconds(2);
-        Debug.Log("Enemy recovered from Hurt");
+        if (State == EnemyState.Dying) return;
         State = EnemyState.Idle;
         enemyAnimations.SetIdle();
     }

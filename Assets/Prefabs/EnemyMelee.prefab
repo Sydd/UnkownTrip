@@ -83,6 +83,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7d27ede41887b4ce0baaea25d70b735f, type: 3}
   - {fileID: 21300000, guid: 525461b905e7044b5bb385f494ba44da, type: 3}
   - {fileID: 21300000, guid: 2394eb48fa93d4f2a9125446f29aee4d, type: 3}
+  dieSprite: {fileID: 21300000, guid: 2394eb48fa93d4f2a9125446f29aee4d, type: 3}
   knockUpDistance: 3
   myself: {fileID: 7867645971993990772}
   sortingOffset: 0

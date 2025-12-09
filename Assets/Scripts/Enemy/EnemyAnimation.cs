@@ -15,6 +15,7 @@ public class EnemyAnimation : MonoBehaviour
  [SerializeField] private List<Sprite> attackDashAnimation;
  [SerializeField] private List<Sprite> hurtAnimation;
  [SerializeField] private List<Sprite> deadAnimation;
+ [SerializeField] private Sprite dieSprite;
 
  [SerializeField] private float knockUpDistance = 1.0f;
  [SerializeField] private Transform myself;
@@ -129,6 +130,6 @@ public class EnemyAnimation : MonoBehaviour
         count = 0;
         currentAnimation = deadAnimation;
         await UniTask.Delay(deadAnimation.Count * 100);
-
+        currentAnimation = new List<Sprite> { dieSprite };
     }
 }
