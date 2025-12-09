@@ -19,6 +19,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip GameOver;
     public AudioClip Warp;
 
+    [Header("Monster Clips")]
+    public AudioClip MonsterGrowl;
+    public AudioClip MonsterDeath;
+    public AudioClip MonsterHit;
+
     [Header("UI Clips")]
     public AudioClip UISelect;
     public AudioClip UImove;

@@ -53,10 +53,13 @@ MonoBehaviour:
   bgmGalaxy: {fileID: 0}
   bgmSea: {fileID: 0}
   SwordSlash: {fileID: 8300000, guid: 81d426e5e7072da4a80a2a4a1e7874d4, type: 3}
-  PlayerHit: {fileID: 8300000, guid: 2229273743e94674485429955fbf626b, type: 3}
+  PlayerHit: {fileID: 8300000, guid: badc22237eebab7408d43c52da03e06a, type: 3}
   PlayerDash: {fileID: 8300000, guid: 3b2a10e3b5aad184dac0afee119b4212, type: 3}
   GameOver: {fileID: 8300000, guid: d5311d5cbada7b749bfd10f4d7ec1037, type: 3}
   Warp: {fileID: 8300000, guid: c0e3db2ccf674e64f8901f6a560ac5af, type: 3}
+  MonsterGrowl: {fileID: 8300000, guid: 717f22efc3f803648a0952152a8e57d3, type: 3}
+  MonsterDeath: {fileID: 8300000, guid: 0f55497ac4befb94b84f2167b1e92593, type: 3}
+  MonsterHit: {fileID: 8300000, guid: 2229273743e94674485429955fbf626b, type: 3}
   UISelect: {fileID: 8300000, guid: c572ec9371fe24c45bad951c73b72168, type: 3}
   UImove: {fileID: 8300000, guid: c9becfa88f32644429eae9e196902881, type: 3}
 --- !u!82 &2782305167674914665

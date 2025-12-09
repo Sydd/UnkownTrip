@@ -201,6 +201,7 @@ public class Enemy : MonoBehaviour
             State = EnemyState.Dying;
             enemyAnimations.SetDie();
             OnDie?.Invoke();
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.MonsterDeath);
         }
         else
         {

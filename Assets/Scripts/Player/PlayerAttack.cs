@@ -85,7 +85,7 @@ public class PlayerAttack : MonoBehaviour
                {
                    enemyScript.TakeDamage(attackDamage, transform.position).Forget();
                    enemyHurt?.Invoke(enemy.transform.position);
-                   AudioManager.Instance.PlaySFX(AudioManager.Instance.PlayerHit);
+                   AudioManager.Instance.PlaySFX(AudioManager.Instance.MonsterHit);
                }
            }
         }
