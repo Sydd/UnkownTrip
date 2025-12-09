@@ -203,6 +203,7 @@ public class EnemyMelee : MonoBehaviour
             await enemyAnimations.SetDie(position);
             await UniTask.Delay(1000);
             Destroy(gameObject);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.MonsterDeath);
             return;
         }
         else

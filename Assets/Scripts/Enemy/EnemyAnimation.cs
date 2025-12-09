@@ -62,6 +62,7 @@ public class EnemyAnimation : MonoBehaviour
         if (currentAnimation == attackDashAnimation) return;
         count = 0;
         currentAnimation = attackDashAnimation;
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.MonsterGrowl);
     }
     public async UniTask PlayHurtAnimation(Vector3 dmgPosition)
     {

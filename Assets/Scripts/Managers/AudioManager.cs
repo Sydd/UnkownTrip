@@ -16,7 +16,17 @@ public class AudioManager : MonoBehaviour
     public AudioClip SwordSlash;
     public AudioClip PlayerHit;
     public AudioClip PlayerDash;
+    public AudioClip GameOver;
+    public AudioClip Warp;
 
+    [Header("Monster Clips")]
+    public AudioClip MonsterGrowl;
+    public AudioClip MonsterDeath;
+    public AudioClip MonsterHit;
+
+    [Header("UI Clips")]
+    public AudioClip UISelect;
+    public AudioClip UImove;
 
     private void Awake()
     {

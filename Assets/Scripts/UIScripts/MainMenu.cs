@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Linq;
 using System.Net;
 using TMPro;
@@ -20,6 +21,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject _menuBackground;
     [SerializeField] private GameObject _menuPortal;
     [SerializeField] private GameObject _menuForeground;
+    [SerializeField] private GameObject _creditsImg;
 
     private void Awake()
     {
@@ -40,6 +42,9 @@ public class MainMenu : MonoBehaviour
         _exitBtn.onClick.AddListener(ExitGame);
         _mainMenuBtn.onClick.AddListener(ShowMainMenu);
         _creditsBtn.onClick.AddListener(ShowCreditsMenu);
+        _creditsImg.GetComponent<Image>().DOFade(0f, 1f)
+             .SetLoops(-1, LoopType.Yoyo)
+             .SetEase(Ease.Linear);
     }
 
     public void ShowMenu(MenuType menu)
@@ -60,7 +65,7 @@ public class MainMenu : MonoBehaviour
                 break;
         }
     }
-    private void StartGame()
+    public void StartGame()
     {
         _mainMenu.SetActive(false);
         _optionMenu.SetActive(false);
@@ -80,7 +85,7 @@ public class MainMenu : MonoBehaviour
         _menuPortal.SetActive(true);
     }
 
-    private void ShowSettingsMenu()
+    public void ShowSettingsMenu()
     {
         _optionMenu.SetActive(true);
         _mainMenu.SetActive(false);
@@ -91,7 +96,7 @@ public class MainMenu : MonoBehaviour
         _menuPortal.SetActive(false);
     }
 
-    private void ShowCreditsMenu()
+    public void ShowCreditsMenu()
     {
         _optionMenu.SetActive(true);
         _mainMenu.SetActive(false);
@@ -101,7 +106,7 @@ public class MainMenu : MonoBehaviour
         _menuPortal.SetActive(false);
     }
 
-    private void HideAllMenus()
+    public void HideAllMenus()
     {
         _optionMenu.SetActive(false);
         _mainMenu.SetActive(false);
@@ -111,7 +116,7 @@ public class MainMenu : MonoBehaviour
         _menuPortal.SetActive(false);
     }
 
-    private void ExitGame()
+    public void ExitGame()
     {
         SceneLoader.Instance.QuitGame();
     }
