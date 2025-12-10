@@ -6,7 +6,7 @@ using System;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 
-public class EnemyMelee : MonoBehaviour
+public class EnemyMelee : MonoBehaviour, IEnemy
 {
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float stepDistance = 1f;
@@ -19,9 +19,9 @@ public class EnemyMelee : MonoBehaviour
     [SerializeField] private int life = 50;
     [SerializeField] private EnemyAnimation enemyAnimations;
     private bool isAttackOnCoolDown = false;
-    public EnemyState State = EnemyState.Idle;
+    public EnemyState State { get; set; } = EnemyState.Idle;
 
-    public Action OnDie;
+    public Action OnDie { get; set; }
     Vector3 originalScale;
     private bool isAttacking = false;
     private bool isMoving = false;
@@ -197,7 +197,7 @@ public class EnemyMelee : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    internal async UniTask TakeDamage(int attackDamage, Vector3 position)
+    public async UniTask TakeDamage(int attackDamage, Vector3 position)
     {
         if (State == EnemyState.Dying) return;
         State = EnemyState.Hurt;
@@ -234,6 +234,14 @@ public class EnemyMelee : MonoBehaviour
         return State != EnemyState.Hurt && State != EnemyState.Dying;
     }
 }
+
+public interface IEnemy
+{
+     EnemyState State { get; set; }
+     UniTask TakeDamage(int attackDamage, Vector3 position);
+     Action OnDie { get; set; }
+}
+
 public enum EnemyState
 {
     Idle,

@@ -5,12 +5,13 @@ using UnityEngine;
 public class ProjectilePool : MonoBehaviour
 {
     [Header("Pool Settings")]
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private int initialSize = 16;
     [SerializeField] private bool allowExpand = true;
 
-    private readonly Queue<GameObject> pool = new Queue<GameObject>();
+    private readonly Queue<Projectile> pool = new Queue<Projectile>();
     private Transform poolParent;
+    public static ProjectilePool Instance;
 
     void Awake()
     {
@@ -20,6 +21,7 @@ public class ProjectilePool : MonoBehaviour
             enabled = false;
             return;
         }
+        Instance = this;
 
         poolParent = new GameObject("ProjectilePool_Container").transform;
         poolParent.SetParent(transform);
@@ -30,48 +32,50 @@ public class ProjectilePool : MonoBehaviour
     {
         for (int i = 0; i < size; i++)
         {
-            var go = CreateProjectileInstance();
-            pool.Enqueue(go);
+            var p = CreateProjectileInstance();
+            pool.Enqueue(p);
         }
     }
 
-    private GameObject CreateProjectileInstance()
+    private Projectile CreateProjectileInstance()
     {
-        var go = Instantiate(projectilePrefab, poolParent);
-        go.SetActive(false);
-        return go;
+        var p = Instantiate(projectilePrefab, poolParent);
+        p.gameObject.SetActive(false);
+        p.SetPool(this);
+        return p;
     }
 
-    public GameObject GetProjectile(Vector3 position, Quaternion rotation)
+    public Projectile GetProjectile(Vector3 position, Quaternion rotation)
     {
-        GameObject go = null;
+        Projectile proj = null;
 
         // Reuse available instance or expand
-        while (pool.Count > 0 && (go == null || go.activeSelf))
+        while (pool.Count > 0 && (proj == null || proj.gameObject.activeSelf))
         {
-            go = pool.Dequeue();
+            proj = pool.Dequeue();
         }
 
-        if (go == null)
+        if (proj == null)
         {
             if (!allowExpand && pool.Count == 0)
             {
                 Debug.LogWarning("ProjectilePool: Pool exhausted and expansion disabled.");
                 return null;
             }
-            go = CreateProjectileInstance();
+            proj = CreateProjectileInstance();
         }
 
-        go.transform.SetPositionAndRotation(position, rotation);
-        go.SetActive(true);
-        return go;
+        proj.transform.SetPositionAndRotation(position, rotation);
+        proj.gameObject.SetActive(true);
+        proj.OnSpawned();
+        return proj;
     }
 
-    public void ReturnProjectile(GameObject go)
+    public void ReturnProjectile(Projectile proj)
     {
-        if (go == null) return;
-        go.SetActive(false);
-        go.transform.SetParent(poolParent);
-        pool.Enqueue(go);
+        if (proj == null) return;
+        proj.gameObject.SetActive(false);
+        proj.transform.SetParent(poolParent);
+        pool.Enqueue(proj);
     }
 }

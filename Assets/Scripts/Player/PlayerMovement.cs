@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 speed = IsDashing() ? move * dashSpeed : move * moveSpeed;
             speed = IsAttacking() ? speed * 0.2f : speed;
-            controller.Move(speed * Time.deltaTime);
+            if (controller.enabled) controller.Move(speed * Time.deltaTime);
 
             // Update facing direction based on horizontal input
             if (h > 0 && !lookingRight)
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        if (controller.enabled)controller.Move(velocity * Time.deltaTime);
     }
 
     private bool IsAttacking()

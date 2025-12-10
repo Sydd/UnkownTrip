@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    public List<EnemyMelee> enemiesInLevel = new List<EnemyMelee>();
+    public List<IEnemy> enemiesInLevel = new List<IEnemy>();
     public Action<Level>   OnLevelCleared;
     public Transform portalPosition;
     public Transform playerSpawnPoint;
+    public Transform enemyContainer;
     public AudioClip levelMusic;
     public string levelName;
     private void Start()
     {
+        enemiesInLevel = new List<IEnemy>();
+        enemiesInLevel.AddRange(enemyContainer.GetComponentsInChildren<EnemyRanger>());
+        enemiesInLevel.AddRange(enemyContainer.GetComponentsInChildren<EnemyMelee>());
         foreach (var enemy in enemiesInLevel)
         {
             enemy.OnDie += () => HandleEnemyDeath(enemy);
@@ -24,7 +28,7 @@ public class Level : MonoBehaviour
         
     }
 
-    private void HandleEnemyDeath(EnemyMelee enemy)
+    private void HandleEnemyDeath(IEnemy enemy)
     {
         enemiesInLevel.Remove(enemy);
         enemy.OnDie = null;
