@@ -16,6 +16,11 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform attackPoint;
     [SerializeField] private PlayerMovement playerMovement;  
     [SerializeField] private GameObject dashEffect;
+
+    [SerializeField] private float hitstopDuration = 0.05f;
+    [SerializeField] private bool freezeAll = true;   // freeze whole game or just player
+    [SerializeField] private bool freezePlayerMovement = true;
+
     private bool isDashOnCooldown = false;
     public Action<Vector3> enemyHurt;
     void Awake()
@@ -26,11 +31,11 @@ public class PlayerAttack : MonoBehaviour
 
     async void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && CanAttack() )
+        if (Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("Jump") && CanAttack() )
         {
             await AttackAsync();
         }
-        if (Input.GetKeyDown(KeyCode.K) && CanDash() )
+        if (Input.GetKeyDown(KeyCode.K) || Input.GetButtonDown("Fire1") && CanDash() )
         {
             await DashAsync();
         }
@@ -93,7 +98,9 @@ public class PlayerAttack : MonoBehaviour
                    enemyHurt?.Invoke(enemy.transform.position);
                    AudioManager.Instance.PlaySFX(AudioManager.Instance.MonsterHit);
                }
-           }
+
+                await HitStopAsync();
+            }
         }
 
         // Wait for remaining cooldown OR until dash is pressed
@@ -104,6 +111,30 @@ public class PlayerAttack : MonoBehaviour
             PlayerStatus.Instance.currentState = PlayerState.Idle;
         }
     }
+
+    private async UniTask HitStopAsync()
+    {
+        float originalTimeScale = Time.timeScale;
+
+        // Freeze ALL gameplay
+        if (freezeAll)
+            Time.timeScale = 0f;
+
+        // Freeze only player movement logic
+        if (freezePlayerMovement && playerMovement != null)
+            playerMovement.enabled = false;
+
+        // Wait in REAL TIME (so hitstop works even at timeScale = 0)
+        await UniTask.Delay(TimeSpan.FromSeconds(hitstopDuration), ignoreTimeScale: true);
+
+        // Restore
+        if (freezeAll)
+            Time.timeScale = originalTimeScale;
+
+        if (freezePlayerMovement && playerMovement != null)
+            playerMovement.enabled = true;
+    }
+
 
     void OnDrawGizmosSelected()
     {
