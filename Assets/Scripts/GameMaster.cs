@@ -17,9 +17,9 @@ public class GameMaster : MonoBehaviour
     [SerializeField] private PlayerStatus playerStatus;
 
     public GameObject seaTrophie;
-    private int seaCounter =2;
-    private int galaxyCounter =2;
-    private int forestCounter =2;
+    private int seaCounter =1;
+    private int galaxyCounter =1;
+    private int forestCounter =1;
     public GameObject galaxyTrophie;
     public GameObject forestTrophie;
     private Level currentLevel;
