@@ -107,7 +107,6 @@ private bool runningDeathSequence = false;
         fadeTool.FadeIn();
         await UniTask.Delay(500);
         playerStatus.GetComponent<CharacterController>().enabled = true;
-
     }
 
     private Level GetRandomLevel(){

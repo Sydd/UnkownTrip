@@ -20,7 +20,6 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float hitstopDuration = 0.05f;
     [SerializeField] private bool freezeAll = true;   // freeze whole game or just player
     [SerializeField] private bool freezePlayerMovement = true;
-
     private bool isDashOnCooldown = false;
     public Action<Vector3> enemyHurt;
     void Awake()
