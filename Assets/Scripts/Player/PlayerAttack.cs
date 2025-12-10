@@ -15,6 +15,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private PlayerMovement playerMovement;  
+    [SerializeField] private GameObject dashEffect;
     private bool isDashOnCooldown = false;
     public Action<Vector3> enemyHurt;
     void Awake()
@@ -38,6 +39,7 @@ public class PlayerAttack : MonoBehaviour
     private async UniTask DashAsync()
     {
         isDashOnCooldown = true;
+        dashEffect.SetActive(true);
         PlayerStatus.Instance.currentState = PlayerState.Dash;
         AudioManager.Instance.PlaySFX(AudioManager.Instance.PlayerDash);
         // Wait for dash duration
@@ -80,7 +82,11 @@ public class PlayerAttack : MonoBehaviour
             // Deal damage to enemy
            if (enemy != null)
            {
-               EnemyMelee enemyScript = enemy.GetComponent<EnemyMelee>();
+               IEnemy enemyScript = enemy.GetComponent<EnemyMelee>();
+               if (enemyScript == null)
+               {
+                   enemyScript = enemy.GetComponent<EnemyRanger>();
+               }
                if (enemyScript != null)
                {
                    enemyScript.TakeDamage(attackDamage, transform.position).Forget();

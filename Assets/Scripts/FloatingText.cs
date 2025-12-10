@@ -33,7 +33,7 @@ public class FloatingText : MonoBehaviour
         }
         if (playerAttack != null)
         {
-            playerAttack.enemyHurt += (Vector3 pos) => SpawnDamageText(10, pos);
+        //    playerAttack.enemyHurt += (Vector3 pos) => SpawnDamageText(10, pos);
         }
     }
 
@@ -60,7 +60,7 @@ public class FloatingText : MonoBehaviour
 
     private void HandleDamaged()
     {
-        SpawnDamageText(10, playerStatus.transform.position);
+      //  SpawnDamageText(10, playerStatus.transform.position);
     }
 
     private void SpawnDamageText(float damage, Vector3 position)

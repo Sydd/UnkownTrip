@@ -702,6 +702,14 @@ PrefabInstance:
       propertyPath: Shadow
       value: 
       objectReference: {fileID: 774598003}
+    - target: {fileID: 2942868379248038128, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2942868379248038128, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4054574806995984268, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
       propertyPath: attackRange
       value: 1.63
@@ -1407,7 +1415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
       propertyPath: m_SortingLayerID

@@ -227,3 +227,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimations: {fileID: 88081442518205150}
   projectileSpawnOffset: 0.5
+  life: 30
+  floatAmplitude: 0.25
+  floatPeriod: 1.5
+  floatSwayAmplitude: 0.15
+  floatSwayPeriod: 2
+  floatTarget: {fileID: 569582887113345203}

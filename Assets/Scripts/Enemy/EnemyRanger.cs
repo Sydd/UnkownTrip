@@ -11,6 +11,13 @@ public class EnemyRanger : MonoBehaviour, IEnemy
     private Transform player;
     [SerializeField] private EnemyAnimation enemyAnimations;
     [SerializeField] private float projectileSpawnOffset = 0.5f;
+    [SerializeField] private int life = 30;
+    [Header("Floating Effect")]
+    [SerializeField] private float floatAmplitude = 0.25f;
+    [SerializeField] private float floatPeriod = 1.5f;
+    [SerializeField] private float floatSwayAmplitude = 0.15f;
+    [SerializeField] private float floatSwayPeriod = 2.0f;
+    [SerializeField] private Transform floatTarget; // optional: assign visual child
     Vector3 originalScale;
     public EnemyState State { get; set; } = EnemyState.Idle;
     private bool isAttacking = false;
@@ -21,7 +28,18 @@ public class EnemyRanger : MonoBehaviour, IEnemy
         playerStatus = PlayerStatus.Instance;
         player = playerStatus.transform;
         enemyAnimations.SetIdle();
-        originalScale = transform.localScale;        
+        originalScale = transform.localScale;
+
+        // Start floating effect
+        var target = floatTarget == null ? transform : floatTarget;
+        float originalY = target.localPosition.y;
+        float originalX = target.localPosition.x;
+        LeanTween.moveLocalY(target.gameObject, originalY + floatAmplitude, floatPeriod)
+             .setEaseInOutSine()
+             .setLoopPingPong();
+        LeanTween.moveLocalX(target.gameObject, originalX + floatSwayAmplitude, floatSwayPeriod)
+             .setEaseInOutSine()
+             .setLoopPingPong();
     }
     // Update is called once per frame
 async void Update()
@@ -81,8 +99,28 @@ async void Update()
         State = EnemyState.Hurt;
         enemyAnimations.SetIdle();
         // Play hurt animation
-        if (gameObject != null)
+       life -= attackDamage;
+        if (life <= 0)
         {
+            State = EnemyState.Dying;
+            // Stop any ongoing tweens and actions
+            isAttacking = false;
+            if (gameObject != null)
+            {
+                LeanTween.cancel(gameObject);
+            }
+            if (floatTarget != null)
+            {
+                LeanTween.cancel(floatTarget.gameObject);
+            }
+            OnDie?.Invoke();
+            await enemyAnimations.SetDie(position);
+            await UniTask.Delay(1000);
+            Destroy(gameObject);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.MonsterDeath);
+            return;
+        }        
+        else{
             await enemyAnimations.PlayHurtAnimation(position);
         }
         await UniTask.WaitForSeconds(2);

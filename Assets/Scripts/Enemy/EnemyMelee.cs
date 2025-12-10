@@ -209,10 +209,10 @@ public class EnemyMelee : MonoBehaviour, IEnemy
             // Stop any ongoing tweens and actions
             isAttacking = false;
             isMoving = false;
-                if (gameObject != null)
-                {
-                    LeanTween.cancel(gameObject);
-                }
+            if (gameObject != null)
+            {
+                LeanTween.cancel(gameObject);
+            }
             OnDie?.Invoke();
             await enemyAnimations.SetDie(position);
             await UniTask.Delay(1000);

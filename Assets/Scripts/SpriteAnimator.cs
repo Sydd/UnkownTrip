@@ -6,12 +6,21 @@ using UnityEngine;
 public class SpriteAnimator : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private bool scale = true;
+    [SerializeField] private bool deactivateAfterAnimation = false;
+    [SerializeField] private int step = 250;
     public List<Sprite> spritesToAnimate;
-    
-    private void Start()
+
+    private void OnEnable()
     {
         RunAnimation().Forget();
-        StartScaleAnimation();
+        if (scale) StartScaleAnimation();
+    }
+
+    private void OnDisable()
+    {
+        // Cancel any tweens on disable to avoid lingering animations
+        LeanTween.cancel(gameObject);
     }
     
     private void StartScaleAnimation()
@@ -33,15 +42,25 @@ public class SpriteAnimator : MonoBehaviour
         }
         
         int count = 0;
-        while (true)
+        bool running = true;
+        while (running)
         {
             if (this == null) return;
+            if (!gameObject.activeInHierarchy) return;
             if (spritesToAnimate != null && spritesToAnimate.Count > 0) 
             {
                 spriteRenderer.sprite = spritesToAnimate[count];
-                count = (count + 1) % spritesToAnimate.Count;
+                // Advance frame
+                int next = (count + 1) % spritesToAnimate.Count;
+                // If we completed a full cycle and should deactivate, do it reliably
+                if (deactivateAfterAnimation && next == 0)
+                {
+                    gameObject.SetActive(false);
+                    return;
+                }
+                count = next;
             }
-            await UniTask.Delay(250);
+            await UniTask.Delay(step);
         }
     }
 }
