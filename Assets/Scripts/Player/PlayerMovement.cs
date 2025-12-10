@@ -87,6 +87,5 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer.flipX = !spriteRenderer.flipX;
         spriteRenderer.transform.localScale = scale;
         Shadow.flipX = !Shadow.flipX;
-
     }
 }

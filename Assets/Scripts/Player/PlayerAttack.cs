@@ -40,8 +40,12 @@ public class PlayerAttack : MonoBehaviour
     {
         isDashOnCooldown = true;
         dashEffect.SetActive(true);
+        Vector3 dashposition = new Vector3(!playerMovement.lookingRight ? 1f : -1f, dashEffect.transform.localPosition.y, dashEffect.transform.localPosition.z);
+        dashEffect.transform.localPosition = dashposition;
+        dashEffect.transform.localScale = new Vector3(!playerMovement.lookingRight ? -3f : 3f, dashEffect.transform.localScale.y, dashEffect.transform.localScale.z);
         PlayerStatus.Instance.currentState = PlayerState.Dash;
         AudioManager.Instance.PlaySFX(AudioManager.Instance.PlayerDash);
+
         // Wait for dash duration
         await UniTask.Delay(System.TimeSpan.FromSeconds(dashDuration));
         
