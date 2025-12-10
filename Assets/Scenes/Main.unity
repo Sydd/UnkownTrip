@@ -1395,7 +1395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4054574806995984268, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
       propertyPath: dashDuration
-      value: 0.2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7272593119838493051, guid: 2bae8c8095c9b487fad3fc69340ed852, type: 3}
       propertyPath: m_Name

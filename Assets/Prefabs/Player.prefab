@@ -299,6 +299,9 @@ MonoBehaviour:
   attackPoint: {fileID: 8669749485963643643}
   playerMovement: {fileID: 292655372566760608}
   dashEffect: {fileID: 7597508490569307402}
+  hitstopDuration: 0.05
+  freezeAll: 1
+  freezePlayerMovement: 1
 --- !u!114 &8614327674758080956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,24 +332,39 @@ MonoBehaviour:
   hurtFadeDuration: 0.3
   spriteRenderer: {fileID: 8851491720748448195}
   idle:
-  - {fileID: 21300000, guid: db03eba5da4cade49a93f329d09b3442, type: 3}
-  - {fileID: 21300000, guid: 4c76cf918a299c148a6ee49818bc7c1d, type: 3}
-  - {fileID: 21300000, guid: 8fd994e236af1174484ceb0f1d825d43, type: 3}
-  - {fileID: 21300000, guid: db7925e7fa042704f8408e7802134282, type: 3}
+  - {fileID: 21300000, guid: a16e1c26e122c4dc79fb72fae48804af, type: 3}
+  - {fileID: 21300000, guid: 4fbed0e5da06e49c79e4fd5c78f8a2bd, type: 3}
+  - {fileID: 21300000, guid: 62fc56c9f98b948dfa240574379e2981, type: 3}
+  - {fileID: 21300000, guid: 2949c4638e73a42c7b4876e9c34e5180, type: 3}
+  - {fileID: 21300000, guid: 357ffcae715c24e15b85123a6c44474d, type: 3}
+  - {fileID: 21300000, guid: 4ad169cf882434057bf14fcd0d43b8b4, type: 3}
+  - {fileID: 21300000, guid: 422229a680d8f4ca7939900d3d4d8b08, type: 3}
+  - {fileID: 21300000, guid: ea2b4a1589eab4390b2ca796411996a7, type: 3}
   moving:
-  - {fileID: 21300000, guid: 781cc660290d21c4b9222001f7e02902, type: 3}
-  - {fileID: 21300000, guid: 9f822d9581edc7b4cbce7e741e3fdbe3, type: 3}
-  - {fileID: 21300000, guid: 2837b6eb11555964eb018063c3ca3045, type: 3}
-  - {fileID: 21300000, guid: 2bb7e3089e4b493429787184da55353b, type: 3}
+  - {fileID: 21300000, guid: a4293c35c8c054ef8a5e8ff1a35dc4ca, type: 3}
+  - {fileID: 21300000, guid: fc1af85320ecb44b88056602710e3d25, type: 3}
+  - {fileID: 21300000, guid: 27097b4972a5141ea8aa6a100c672d92, type: 3}
+  - {fileID: 21300000, guid: 14c6468e1f0c542988a22b19a036f5ee, type: 3}
+  - {fileID: 21300000, guid: 8ca80e9feedc04ed9a6b37d8c6c112cf, type: 3}
+  - {fileID: 21300000, guid: ee3a77ede01cd4905b41032fa1e3301f, type: 3}
+  - {fileID: 21300000, guid: e8424985e97b24806b278de4460ec1a3, type: 3}
+  - {fileID: 21300000, guid: b813c80e45828436b89a1e9aae716f36, type: 3}
   attacking:
-  - {fileID: 21300000, guid: 016031a5ca0aef6479453f3ba174c85b, type: 3}
-  - {fileID: 21300000, guid: 8aeec93af493e794180ea0925a275fba, type: 3}
-  - {fileID: 21300000, guid: 6b858746476013744975c22272360fb9, type: 3}
-  - {fileID: 21300000, guid: a733b988d27025948b1ebb7125bb7457, type: 3}
+  - {fileID: 21300000, guid: ec034696c422747088e0757ef266ca13, type: 3}
+  - {fileID: 21300000, guid: 6e3f6b53f570b4883b4d842a1e953d68, type: 3}
+  - {fileID: 21300000, guid: 44cd9d471e975426d8e139668db374d9, type: 3}
+  - {fileID: 21300000, guid: 598c710ac375747c9b477dd8ddc938f4, type: 3}
+  - {fileID: 21300000, guid: 1d11208d69248406c853a95f56c5f4d9, type: 3}
   dash:
-  - {fileID: 21300000, guid: cdfc6f4073090664694269cf095b06f4, type: 3}
-  - {fileID: 21300000, guid: d24fdf8a02e78e74ba9a753bd5116d04, type: 3}
-  - {fileID: 21300000, guid: c1610ae4929769c49b85ef9786e0ce48, type: 3}
+  - {fileID: 21300000, guid: 1718eb7078dcc403f8eec613f95ccc46, type: 3}
+  - {fileID: 21300000, guid: 4bf0adc0b0e1944f882e1eca4fd816ae, type: 3}
+  - {fileID: 21300000, guid: bf40c34aa8504423893c22f66bcff898, type: 3}
+  - {fileID: 21300000, guid: 87385560f07124f88add92b116d5492a, type: 3}
+  - {fileID: 21300000, guid: 9c89a034eebd843d4978b9bf1078712f, type: 3}
+  - {fileID: 21300000, guid: 1b4e92b9f291a4413b57c6a4549bef5a, type: 3}
+  - {fileID: 21300000, guid: 634a03995d72d46748eedc3564997b4f, type: 3}
+  - {fileID: 21300000, guid: 99fa53feb9d624d28b7494e4eef9a89a, type: 3}
+  - {fileID: 21300000, guid: a97665557492949e8ac53105862b7ff6, type: 3}
   timeStep: 100
 --- !u!1 &8087352584277316775
 GameObject:
@@ -422,7 +440,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: db7925e7fa042704f8408e7802134282, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea2b4a1589eab4390b2ca796411996a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

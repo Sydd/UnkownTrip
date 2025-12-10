@@ -81,6 +81,7 @@ public class PlayerAnimations : MonoBehaviour
         currentState = newstate;
         count = 0;
         runOnce = false;
+        timeStep = originalTimeStep;
         switch (currentState)
         {
             case PlayerState.Idle:
@@ -96,6 +97,7 @@ public class PlayerAnimations : MonoBehaviour
                 currentAnimation = attacking;
                 break;
             case PlayerState.Dash:
+                timeStep = originalTimeStep / 2;
                 currentAnimation = dash;
                 break;
             default:
