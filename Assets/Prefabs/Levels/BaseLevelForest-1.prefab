@@ -3259,7 +3259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1652507666200932881, guid: c4ae24907f76be04b907e17614bd8281, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1733902611214946445, guid: c4ae24907f76be04b907e17614bd8281, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3313,6 +3313,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 6.14
       objectReference: {fileID: 0}
+    - target: {fileID: 4388091909468182349, guid: c4ae24907f76be04b907e17614bd8281, type: 3}
+      propertyPath: levelName
+      value: Forest
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388091909468182349, guid: c4ae24907f76be04b907e17614bd8281, type: 3}
+      propertyPath: levelMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 152f580d33d7a994185f7879af17c228, type: 2}
+    - target: {fileID: 4388091909468182349, guid: c4ae24907f76be04b907e17614bd8281, type: 3}
+      propertyPath: enemyContainer
+      value: 
+      objectReference: {fileID: 6405760047460355234}
     - target: {fileID: 4388091909468182349, guid: c4ae24907f76be04b907e17614bd8281, type: 3}
       propertyPath: enemiesInLevel.Array.size
       value: 2
@@ -3456,6 +3468,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7693219159867454580, guid: c4ae24907f76be04b907e17614bd8281, type: 3}
+    - {fileID: 2433354991799172549, guid: c4ae24907f76be04b907e17614bd8281, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2236559266076144533, guid: c4ae24907f76be04b907e17614bd8281, type: 3}
       insertIndex: -1

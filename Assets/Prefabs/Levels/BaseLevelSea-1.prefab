@@ -294,7 +294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9087974102247747505, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6058952195795372781, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}
@@ -443,9 +443,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portalPosition: {fileID: 4851810066260450215}
   playerSpawnPoint: {fileID: 184029096725638260}
-  enemyContainer: {fileID: 0}
+  enemyContainer: {fileID: 7712451858391731577}
   levelMusic: {fileID: 0}
-  levelName: 
+  levelName: Sea
+  levelMaterial: {fileID: 2100000, guid: 74916397b5e6027408f7b30fccc9c66f, type: 2}
 --- !u!4 &7712451858391731577 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8645152552645209653, guid: 6f337e328c6bede4e90dbd96a19a4a0b, type: 3}

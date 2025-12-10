@@ -12,6 +12,7 @@ public class Level : MonoBehaviour
     public Transform enemyContainer;
     public AudioClip levelMusic;
     public string levelName;
+    public Material levelMaterial;
     private void Start()
     {
         enemiesInLevel = new List<IEnemy>();
@@ -25,7 +26,8 @@ public class Level : MonoBehaviour
 
     public void LoadLevel()
     {
-        
+        RenderSettings.skybox = levelMaterial;
+        DynamicGI.UpdateEnvironment();
     }
 
     private void HandleEnemyDeath(IEnemy enemy)

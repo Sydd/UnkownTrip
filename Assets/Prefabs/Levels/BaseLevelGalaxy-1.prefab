@@ -1401,6 +1401,18 @@ PrefabInstance:
       value: 25.630001
       objectReference: {fileID: 0}
     - target: {fileID: 6639244358920147882, guid: 86138a90bdb952041887ef6688e5119d, type: 3}
+      propertyPath: levelName
+      value: Galaxy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639244358920147882, guid: 86138a90bdb952041887ef6688e5119d, type: 3}
+      propertyPath: levelMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 6435322e02f24ac45a5eb9574c4ee087, type: 2}
+    - target: {fileID: 6639244358920147882, guid: 86138a90bdb952041887ef6688e5119d, type: 3}
+      propertyPath: enemyContainer
+      value: 
+      objectReference: {fileID: 3016293382665166623}
+    - target: {fileID: 6639244358920147882, guid: 86138a90bdb952041887ef6688e5119d, type: 3}
       propertyPath: enemiesInLevel.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -1434,7 +1446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8514078397208098550, guid: 86138a90bdb952041887ef6688e5119d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8736316569256213712, guid: 86138a90bdb952041887ef6688e5119d, type: 3}
       propertyPath: m_LocalPosition.z
