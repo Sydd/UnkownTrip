@@ -24,12 +24,13 @@ public class PlayerStatus: MonoBehaviour
     }
     public void Hurt()
     {
+        if (currentState == PlayerState.Dead) return;
         life -= 1;
         OnDamaged?.Invoke();
         if (life <= 0)
         {
             currentState = PlayerState.Dead;
-           // OnDeath?.Invoke();
+            OnDeath?.Invoke();
         }
         else
         {

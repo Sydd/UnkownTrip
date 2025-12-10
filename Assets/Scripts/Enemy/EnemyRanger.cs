@@ -29,7 +29,7 @@ public class EnemyRanger : MonoBehaviour, IEnemy
         player = playerStatus.transform;
         enemyAnimations.SetIdle();
         originalScale = transform.localScale;
-
+        transform.position = new Vector3(transform.position.x, playerStatus.transform.position.y, transform.position.z);
         // Start floating effect
         var target = floatTarget == null ? transform : floatTarget;
         float originalY = target.localPosition.y;
@@ -42,7 +42,7 @@ public class EnemyRanger : MonoBehaviour, IEnemy
              .setLoopPingPong();
     }
     // Update is called once per frame
-async void Update()
+    async void Update()
     {
         if (State == EnemyState.Dying) return;
         if (State == EnemyState.Idle && !isAttacking  && player != null)

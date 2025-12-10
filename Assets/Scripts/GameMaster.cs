@@ -33,11 +33,16 @@ public class GameMaster : MonoBehaviour
         playerStatus.OnDeath += async () => await HandlePlayerDeath();
     }
 
+private bool runningDeathSequence = false;
     private async UniTask HandlePlayerDeath()
     {
+        if (runningDeathSequence) return;
+        runningDeathSequence = true;
         await UniTask.Delay(1000);
-        fadeTool.FadeIn();
+        GameOverImage.instance.TurnOnBackground();
         await UniTask.Delay(1000);
+        await GameOverImage.instance.FadeIn();
+        await UniTask.Delay(3000);
         SceneManager.LoadScene(0);
     }
 
