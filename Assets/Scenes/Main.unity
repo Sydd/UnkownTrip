@@ -3813,7 +3813,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2126854134694573843, guid: 3670f6d3568404cb69380e0583060714, type: 3}
       propertyPath: m_ClearFlags
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2126854134694573843, guid: 3670f6d3568404cb69380e0583060714, type: 3}
       propertyPath: orthographic
