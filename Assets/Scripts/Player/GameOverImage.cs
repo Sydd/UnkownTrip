@@ -91,6 +91,7 @@ public class GameOverImage : MonoBehaviour
 
         // Deactivate after fade out completes
         SetActiveAll(false);
+        SceneLoader.Instance.LoadScene("MainMenu");
     }
 
     public void ActivateAll()

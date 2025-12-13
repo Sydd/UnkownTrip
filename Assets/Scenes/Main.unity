@@ -637,6 +637,7 @@ MonoBehaviour:
   onLevel: 0
   entryBase: {fileID: 5237709694785817686}
   playerStatus: {fileID: 1161266447}
+  skyboxGradient: {fileID: 2100000, guid: b9213ef50ffd25f47a69da3d7c91e1a6, type: 2}
   seaTrophie: {fileID: 1956977037}
   galaxyTrophie: {fileID: 748829993}
   forestTrophie: {fileID: 1184899464}
@@ -3947,57 +3948,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_Size.x
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_Size.y
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1334167003
-      objectReference: {fileID: 0}
-    - target: {fileID: 256737630206860011, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1292891012301221078, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
       propertyPath: m_Name
       value: Fade
-      objectReference: {fileID: 0}
-    - target: {fileID: 1851853541880430666, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1851853541880430666, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1851853541880430666, guid: 4f6aa95013370481c8831b15f1317983, type: 3}
       propertyPath: m_LocalPosition.x

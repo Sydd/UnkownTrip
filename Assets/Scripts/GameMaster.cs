@@ -15,6 +15,7 @@ public class GameMaster : MonoBehaviour
     [SerializeField] private bool onLevel = false;
     [SerializeField] private EntryBase entryBase;
     [SerializeField] private PlayerStatus playerStatus;
+    [SerializeField] private Material skyboxGradient;
 
     public GameObject seaTrophie;
     private int seaCounter =1;
@@ -88,6 +89,8 @@ private bool runningDeathSequence = false;
             portal.isActive =true;
             portal.transform.position = entryBase.portalSpawnPoint.position;
             playerStatus.transform.position = entryBase.playerSpawnPoint.position;
+            RenderSettings.skybox = skyboxGradient;
+            DynamicGI.UpdateEnvironment();
             fadeTool.FadeOut();
             onLevel = false;
         }

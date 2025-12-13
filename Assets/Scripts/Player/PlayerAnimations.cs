@@ -1,5 +1,6 @@
-using System;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
@@ -13,6 +14,13 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private Sprite[] attacking;
     [SerializeField] private Sprite[] dash;
     [SerializeField] private int timeStep = 100;
+
+    [Header("Invulnerability Blink")]
+    [SerializeField] private float blinkDuration = 0.07f;
+    [SerializeField] private int blinkCount = 8;
+    [SerializeField] private float blinkAlpha = 0.3f;
+
+    private Tween _blinkTween;
     int originalTimeStep;
     private Sprite[] currentAnimation;        
     int count = 0;
@@ -72,6 +80,36 @@ public class PlayerAnimations : MonoBehaviour
             await UniTask.Delay(timeStep);
         }
     }
+
+
+
+    public void PlayInvulnerabilityBlink()
+    {
+        StopInvulnerabilityBlink();
+
+        _blinkTween = spriteRenderer
+            .DOFade(blinkAlpha, blinkDuration)
+            .SetLoops(blinkCount * 2, LoopType.Yoyo)
+            .SetEase(Ease.Linear)
+            .SetUpdate(true); // ignores Time.timeScale (important for hitstop)
+    }
+
+    public void StopInvulnerabilityBlink()
+    {
+        if (_blinkTween != null && _blinkTween.IsActive())
+            _blinkTween.Kill();
+
+        // Restore visibility
+        Color color = spriteRenderer.color;
+        color.a = 1f;
+        spriteRenderer.color = color;
+    }
+
+    private void OnDisable()
+    {
+        StopInvulnerabilityBlink();
+    }
+
 
     private PlayerState currentState;     
     private void UpdateAnimationState()
