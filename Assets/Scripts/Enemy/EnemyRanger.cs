@@ -93,7 +93,7 @@ public class EnemyRanger : MonoBehaviour, IEnemy
         await UniTask.Delay(2000);
         isAttackOnCoolDown = false;
     }
-    public async UniTask TakeDamage(int attackDamage, Vector3 position)
+    public async UniTask TakeDamage(int attackDamage, Vector3 position, bool shouldKnock)
     {
         if (State == EnemyState.Dying) return;
         State = EnemyState.Hurt;
@@ -121,7 +121,11 @@ public class EnemyRanger : MonoBehaviour, IEnemy
             return;
         }        
         else{
-            await enemyAnimations.PlayHurtAnimation(position);
+            if (shouldKnock)
+            {
+                enemyAnimations.Knockback(position);
+            }
+            await enemyAnimations.PlayHurtAnimation();
         }
         await UniTask.WaitForSeconds(2);
         if (State == EnemyState.Dying) return;

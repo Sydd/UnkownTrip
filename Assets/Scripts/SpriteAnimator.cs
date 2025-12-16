@@ -10,9 +10,11 @@ public class SpriteAnimator : MonoBehaviour
     [SerializeField] private bool deactivateAfterAnimation = false;
     [SerializeField] private int step = 250;
     public List<Sprite> spritesToAnimate;
+    private Vector3 originalScale;
 
     private void OnEnable()
     {
+        originalScale = transform.localScale;
         RunAnimation().Forget();
         if (scale) StartScaleAnimation();
     }
@@ -21,11 +23,12 @@ public class SpriteAnimator : MonoBehaviour
     {
         // Cancel any tweens on disable to avoid lingering animations
         LeanTween.cancel(gameObject);
+        transform.localScale = originalScale;
+
     }
     
     private void StartScaleAnimation()
     {
-        Vector3 originalScale = transform.localScale;
         Vector3 targetScale = originalScale * 1.5f;
         
         LeanTween.scale(gameObject, targetScale, 1f)

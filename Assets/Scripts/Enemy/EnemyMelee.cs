@@ -196,7 +196,7 @@ public class EnemyMelee : MonoBehaviour, IEnemy
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    public async UniTask TakeDamage(int attackDamage, Vector3 position)
+    public async UniTask TakeDamage(int attackDamage, Vector3 position, bool shouldKnock)
     {
         if (State == EnemyState.Dying) return;
         State = EnemyState.Hurt;
@@ -221,7 +221,11 @@ public class EnemyMelee : MonoBehaviour, IEnemy
         }
         else
         {
-            await enemyAnimations.PlayHurtAnimation(position);
+            if(shouldKnock)
+            {
+                enemyAnimations.Knockback(position);
+            }
+            await enemyAnimations.PlayHurtAnimation();
         }
         await UniTask.WaitForSeconds(2);
         if (State == EnemyState.Dying) return;
@@ -237,7 +241,7 @@ public class EnemyMelee : MonoBehaviour, IEnemy
 public interface IEnemy
 {
      EnemyState State { get; set; }
-     UniTask TakeDamage(int attackDamage, Vector3 position);
+     UniTask TakeDamage(int attackDamage, Vector3 position, bool shouldKnock);
      Action OnDie { get; set; }
 }
 

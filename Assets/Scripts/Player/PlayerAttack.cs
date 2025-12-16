@@ -91,13 +91,13 @@ public class PlayerAttack : MonoBehaviour
         if(preResult == "Dash") return;
         PlayerStatus.Instance.currentState = PlayerState.AttackingCombo;
         AudioManager.Instance.PlaySFX(AudioManager.Instance.SwordSlash);
-        await DoDamage();
+        await DoDamage(true);
         preResult = await ResultAsync(AtttackDuration / 2, ignoreAttackInput: true);
         if(preResult == "Dash") return;
         PlayerStatus.Instance.currentState = PlayerState.Idle;
     }
 
-    private async UniTask DoDamage(){
+    private async UniTask DoDamage(bool shouldKnock = false){
          Vector3 attackPosition = attackPoint.position;
         if (playerMovement != null)
         {
@@ -119,7 +119,7 @@ public class PlayerAttack : MonoBehaviour
                }
                if (enemyScript != null)
                {
-                   enemyScript.TakeDamage(attackDamage, transform.position).Forget();
+                   enemyScript.TakeDamage(attackDamage, transform.position, shouldKnock).Forget();
                    enemyHurt?.Invoke(enemy.transform.position);
                    AudioManager.Instance.PlaySFX(AudioManager.Instance.MonsterHit);
                }

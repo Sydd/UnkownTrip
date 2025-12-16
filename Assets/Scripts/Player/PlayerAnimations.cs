@@ -8,6 +8,7 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private float hurtFadeDuration = 0.3f;
     private Transform player;
     private Vector3 orignalScale;
+    private Vector3 originalPosition;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite[] idle;
     [SerializeField] private Sprite[] moving;
@@ -26,6 +27,7 @@ public class PlayerAnimations : MonoBehaviour
     private Sprite[] currentAnimation;        
     int count = 0;
     bool runOnce;
+    
     internal void PlayHurtAnimation()
     {
         if (spriteRenderer != null)
@@ -41,6 +43,20 @@ public class PlayerAnimations : MonoBehaviour
                 });
             AudioManager.Instance.PlaySFX(AudioManager.Instance.PlayerHit);
         }
+    }
+
+    public void PlayBounceAnimation(float bounceHeight = 0.5f, float duration = 0.5f)
+    {
+        originalPosition = spriteRenderer.transform.localPosition;
+        Vector3 targetPosition = originalPosition + new Vector3(0, bounceHeight, 0);
+        
+        LeanTween.moveLocal(spriteRenderer.gameObject, targetPosition, duration / 2f)
+            .setEase(LeanTweenType.easeOutQuad)
+            .setOnComplete(() =>
+            {
+                LeanTween.moveLocal(spriteRenderer.gameObject, originalPosition, duration / 2f)
+                    .setEase(LeanTweenType.easeInQuad);
+            });
     }
     private void Start()
     {
@@ -138,6 +154,7 @@ public class PlayerAnimations : MonoBehaviour
             case PlayerState.Dash:
                 timeStep = originalTimeStep / 2;
                 currentAnimation = dash;
+                PlayBounceAnimation(.5f, currentAnimation.Length * (timeStep / 1000f));
                 break;
             case PlayerState.AttackingCombo:
                 runOnce = true;

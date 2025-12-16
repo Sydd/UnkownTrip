@@ -65,17 +65,14 @@ public class EnemyAnimation : MonoBehaviour
         currentAnimation = attackDashAnimation;
         AudioManager.Instance.PlaySFX(AudioManager.Instance.MonsterGrowl);
     }
-    public async UniTask PlayHurtAnimation(Vector3 dmgPosition)
+
+    public async UniTask PlayHurtAnimation()
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        Vector3 originalScale = transform.localScale;
         Color originalColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
         count = 0;
         currentAnimation = hurtAnimation;
         LeanTween.cancel(gameObject);
 
-        // Move away from damage position with a curve (ease out)
-        Knockback(dmgPosition);
         // Turn red then back to original color
         if (spriteRenderer != null)
         {
@@ -115,7 +112,7 @@ public class EnemyAnimation : MonoBehaviour
         spriteRenderer.sortingOrder = (int)(-transform.position.z * precision) + sortingOffset;
     }
 
-    private void Knockback(Vector3 dmgPosition)
+    public void Knockback(Vector3 dmgPosition)
     {
         Vector3 direction = (myself.position - dmgPosition).normalized;
         Vector3 startPos = myself.position;
