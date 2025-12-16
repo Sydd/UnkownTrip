@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private int attackDamage = 10;
-    [SerializeField] public float attackCooldown = 0.4f;
+    [SerializeField] public float attackDuration = 0.4f;
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] public static float AttackCooldown = 0.4f;
+    [SerializeField] public static float AtttackDuration = 0.4f;
     [SerializeField] private float dashDuration = 1f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private float attackOffset = 1f;
@@ -25,21 +25,26 @@ public class PlayerAttack : MonoBehaviour
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        AttackCooldown = attackCooldown;
+        AtttackDuration = attackDuration;
     }
 
     async void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("Jump") && CanAttack() )
+        if  (AttackInputDetected() && CanAttack() )
         {
             await AttackAsync();
         }
-        if (Input.GetKeyDown(KeyCode.K) || Input.GetButtonDown("Fire1") && CanDash() )
+        if (DashInputDetected() && CanDash() )
         {
             await DashAsync();
         }
     }
 
+    private bool DashInputDetected()
+    {
+        if (Input.GetKeyDown(KeyCode.K) || Input.GetButtonDown("Fire1")) return true;
+        return false;
+    }
     private async UniTask DashAsync()
     {
         isDashOnCooldown = true;
@@ -71,12 +76,29 @@ public class PlayerAttack : MonoBehaviour
         PlayerStatus.Instance.currentState = PlayerState.Attacking;
         
         // Wait for half attack cooldown OR until dash is pressed
-        var delayTask = UniTask.Delay(System.TimeSpan.FromSeconds(AttackCooldown / 2));
-        await UniTask.WaitUntil(() => delayTask.Status == UniTaskStatus.Succeeded || PlayerStatus.Instance.currentState == PlayerState.Dash);
-        if(PlayerStatus.Instance.currentState == PlayerState.Dash ) return;
+        string preResult = await ResultAsync(AtttackDuration / 2, ignoreAttackInput: true);
+        if(preResult == "Dash") return;
+
         AudioManager.Instance.PlaySFX(AudioManager.Instance.SwordSlash);
-        // Calculate attack position with offset based on facing direction
-        Vector3 attackPosition = attackPoint.position;
+        await DoDamage();
+
+        string result = await ResultAsync(AtttackDuration / 2);
+        if (result != "Attack") {
+            PlayerStatus.Instance.currentState = PlayerState.Idle;
+            return ;
+        }
+        preResult = await ResultAsync(AtttackDuration / 2, ignoreAttackInput: true);
+        if(preResult == "Dash") return;
+        PlayerStatus.Instance.currentState = PlayerState.AttackingCombo;
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.SwordSlash);
+        await DoDamage();
+        preResult = await ResultAsync(AtttackDuration / 2, ignoreAttackInput: true);
+        if(preResult == "Dash") return;
+        PlayerStatus.Instance.currentState = PlayerState.Idle;
+    }
+
+    private async UniTask DoDamage(){
+         Vector3 attackPosition = attackPoint.position;
         if (playerMovement != null)
         {
             float direction = playerMovement.lookingRight ? 1f : -1f;
@@ -105,16 +127,26 @@ public class PlayerAttack : MonoBehaviour
                 await HitStopAsync();
             }
         }
-
-        // Wait for remaining cooldown OR until dash is pressed
-        var cooldownTask = UniTask.Delay(System.TimeSpan.FromSeconds(AttackCooldown / 2));
-        await UniTask.WaitUntil(() => cooldownTask.Status == UniTaskStatus.Succeeded || PlayerStatus.Instance.currentState == PlayerState.Dash);        
-        if (PlayerStatus.Instance.currentState != PlayerState.Dash)
-        {
-            PlayerStatus.Instance.currentState = PlayerState.Idle;
-        }
     }
+    private async UniTask<string> ResultAsync(float secondsToAwait, bool ignoreAttackInput = false)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < secondsToAwait)
+        {
+            if (DashInputDetected())
+            {
+                return "Dash";
+            }
+            if (AttackInputDetected() && !ignoreAttackInput)
+            {
+                return "Attack";
+            }
 
+            elapsedTime +=Time.deltaTime;
+            await UniTask.Yield();
+        }
+        return "Timeout";
+    }
     private async UniTask HitStopAsync()
     {
         float originalTimeScale = Time.timeScale;
@@ -138,7 +170,15 @@ public class PlayerAttack : MonoBehaviour
             playerMovement.enabled = true;
     }
 
-
+    private bool CanAttack(){
+       return  PlayerStatus.Instance.currentState == PlayerState.Idle || 
+       PlayerStatus.Instance.currentState == PlayerState.Moving ;
+    }
+    private bool AttackInputDetected()
+    {
+        if (Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("Jump")) return true;
+        return false;
+    }
     void OnDrawGizmosSelected()
     {
         if (attackPoint == null)
@@ -156,8 +196,4 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.DrawWireSphere(attackPosition, attackRange);
     }
 
-    public bool CanAttack(){
-       return  PlayerStatus.Instance.currentState == PlayerState.Idle || 
-       PlayerStatus.Instance.currentState == PlayerState.Moving ;
-    }
 }

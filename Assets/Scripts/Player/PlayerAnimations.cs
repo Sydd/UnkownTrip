@@ -13,6 +13,7 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private Sprite[] moving;
     [SerializeField] private Sprite[] attacking;
     [SerializeField] private Sprite[] dash;
+    [SerializeField] private Sprite[] attackingCombo;
     [SerializeField] private int timeStep = 100;
 
     [Header("Invulnerability Blink")]
@@ -137,6 +138,10 @@ public class PlayerAnimations : MonoBehaviour
             case PlayerState.Dash:
                 timeStep = originalTimeStep / 2;
                 currentAnimation = dash;
+                break;
+            case PlayerState.AttackingCombo:
+                runOnce = true;
+                currentAnimation = attackingCombo;
                 break;
             default:
                 currentAnimation = idle;

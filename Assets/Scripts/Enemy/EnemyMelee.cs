@@ -110,7 +110,6 @@ public class EnemyMelee : MonoBehaviour, IEnemy
     {   
         if (isAttacking) return;
         isAttacking = true;
-        Debug.Log("Attacking Player");
         float attackDistance = stopDistance * 1.2f;
         Vector3 directionToPlayer = (player.position - transform.position).normalized * attackDistance;
         Vector3 startPosition = transform.position;

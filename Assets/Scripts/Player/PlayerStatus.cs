@@ -101,5 +101,6 @@ public enum PlayerState
     Moving,
     Attacking,
     Dead,
-    Dash
+    Dash,
+    AttackingCombo
 }

@@ -288,9 +288,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  attackCooldown: 0.4
+  attackDuration: 0.5
   attackRange: 1.63
-  dashDuration: 0.2
+  dashDuration: 0.5
   dashCooldown: 0.5
   attackOffset: 1.44
   enemyLayer:
@@ -316,6 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnimations: {fileID: 3886276780789612330}
   life: 3
+  invulnerabilityTime: 1
   currentState: 0
 --- !u!114 &3886276780789612330
 MonoBehaviour:
@@ -365,7 +366,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 634a03995d72d46748eedc3564997b4f, type: 3}
   - {fileID: 21300000, guid: 99fa53feb9d624d28b7494e4eef9a89a, type: 3}
   - {fileID: 21300000, guid: a97665557492949e8ac53105862b7ff6, type: 3}
+  attackingCombo:
+  - {fileID: 21300000, guid: ca4f4df74dc3c4bf1a2be6b5107265a2, type: 3}
+  - {fileID: 21300000, guid: e5e28da3a0469496d80d4cf29cd9c050, type: 3}
+  - {fileID: 21300000, guid: 201b59d4caff246d48e5fd66f584c80e, type: 3}
+  - {fileID: 21300000, guid: ed769af94e0cd4c1c929e0e93e03af04, type: 3}
+  - {fileID: 21300000, guid: 418d7151bff3844f4adb9a6e004c6fd4, type: 3}
   timeStep: 100
+  blinkDuration: 0.07
+  blinkCount: 8
+  blinkAlpha: 0.3
 --- !u!1 &8087352584277316775
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +450,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: ea2b4a1589eab4390b2ca796411996a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db7925e7fa042704f8408e7802134282, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -524,7 +534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8341456450958065190, guid: 2fe91cb63074042fdad62fd7f425ed69, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.675
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8341456450958065190, guid: 2fe91cb63074042fdad62fd7f425ed69, type: 3}
       propertyPath: m_LocalRotation.w
