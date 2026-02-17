@@ -113,6 +113,7 @@ private bool runningDeathSequence = false;
     }
 
     private Level GetRandomLevel(){
+        return levels[0];
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
         var num = UnityEngine.Random.Range(0, levels.Count);
         Level level = levels[num];
