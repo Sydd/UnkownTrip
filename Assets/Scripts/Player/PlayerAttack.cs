@@ -80,7 +80,7 @@ public class PlayerAttack : MonoBehaviour
         if(preResult == "Dash") return;
 
         AudioManager.Instance.PlaySFX(AudioManager.Instance.SwordSlash);
-        await DoDamage();
+        TryToDoDamage();
 
         string result = await ResultAsync(AtttackDuration / 2);
         if (result != "Attack") {
@@ -91,13 +91,13 @@ public class PlayerAttack : MonoBehaviour
         if(preResult == "Dash") return;
         PlayerStatus.Instance.currentState = PlayerState.AttackingCombo;
         AudioManager.Instance.PlaySFX(AudioManager.Instance.SwordSlash);
-        await DoDamage(true);
+        TryToDoDamage(true);
         preResult = await ResultAsync(AtttackDuration / 2, ignoreAttackInput: true);
         if(preResult == "Dash") return;
         PlayerStatus.Instance.currentState = PlayerState.Idle;
     }
 
-    private async UniTask DoDamage(bool shouldKnock = false){
+    private void TryToDoDamage(bool shouldKnock = false){
          Vector3 attackPosition = attackPoint.position;
         if (playerMovement != null)
         {
@@ -124,7 +124,6 @@ public class PlayerAttack : MonoBehaviour
                    AudioManager.Instance.PlaySFX(AudioManager.Instance.MonsterHit);
                }
 
-                await HitStopAsync();
             }
         }
     }
@@ -146,28 +145,6 @@ public class PlayerAttack : MonoBehaviour
             await UniTask.Yield();
         }
         return "Timeout";
-    }
-    private async UniTask HitStopAsync()
-    {
-        float originalTimeScale = Time.timeScale;
-
-        // Freeze ALL gameplay
-        if (freezeAll)
-            Time.timeScale = 0f;
-
-        // Freeze only player movement logic
-        if (freezePlayerMovement && playerMovement != null)
-            playerMovement.enabled = false;
-
-        // Wait in REAL TIME (so hitstop works even at timeScale = 0)
-        await UniTask.Delay(TimeSpan.FromSeconds(hitstopDuration), ignoreTimeScale: true);
-
-        // Restore
-        if (freezeAll)
-            Time.timeScale = originalTimeScale;
-
-        if (freezePlayerMovement && playerMovement != null)
-            playerMovement.enabled = true;
     }
 
     private bool CanAttack(){
