@@ -89,7 +89,7 @@ private bool runningDeathSequence = false;
             portal.isActive =true;
             portal.transform.position = entryBase.portalSpawnPoint.position;
             playerStatus.transform.position = entryBase.playerSpawnPoint.position;
-            RenderSettings.skybox = skyboxGradient;
+           // RenderSettings.skybox = skyboxGradient;
             DynamicGI.UpdateEnvironment();
             fadeTool.FadeOut();
             onLevel = false;

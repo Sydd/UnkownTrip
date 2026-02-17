@@ -26,7 +26,7 @@ public class Level : MonoBehaviour
 
     public void LoadLevel()
     {
-        RenderSettings.skybox = levelMaterial;
+     //   RenderSettings.skybox = levelMaterial;
         DynamicGI.UpdateEnvironment();
     }
 
